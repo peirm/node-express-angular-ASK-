@@ -1,0 +1,108 @@
+
+<!--主体内容-->
+<main>
+    <div class="container">
+        <!--内容左部分-->
+        <div class="col-lg-9 main-left">
+            <!--标题栏-->
+            <div class="title">
+                <a href="#" class="pull-left discover">
+                    <span class="fa fa-bell-o"></span>
+                    消息
+                </a>
+                <ul class="pull-right tab">
+                    <li class="hover"><a href="#">未读消息</a></li>
+                    <li><a href="#">已读消息</a></li>
+                </ul>
+            </div>
+            <!--消息列表-->
+            <div class="body">
+                <!--未读消息列表-->
+                <ul class="read">
+                    <h3><a href="#">全部已读</a></h3>
+                    <li>
+                        <p>
+                            <a href="#">suweiqing</a>
+                            回复了你的问题
+                            <a href="#">开发链接回复快乐家黄庭坚人多地方</a>
+                            <span class="sure pull-right"><a href="#">确认已读</a></span>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#">suweiqing</a>
+                            回复了你的问题
+                            <a href="#">开发链接回复快乐家黄庭坚人多地方</a>
+                            <span class="sure pull-right"><a href="#">确认已读</a></span>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#">suweiqing</a>
+                            回复了你的问题
+                            <a href="#">开发链接回复快乐家黄庭坚人多地方</a>
+                            <span class="sure pull-right"><a href="#">确认已读</a></span>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#">suweiqing</a>
+                            回复了你的问题
+                            <a href="#">开发链接回复快乐家黄庭坚人多地方</a>
+                            <span class="sure pull-right"><a href="#">确认已读</a></span>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#">suweiqing</a>
+                            回复了你的问题
+                            <a href="#">开发链接回复快乐家黄庭坚人多地方</a>
+                            <span class="sure pull-right"><a href="#">确认已读</a></span>
+                        </p>
+                    </li>
+                </ul>
+                <!--已读消息列表-->
+                <ul class="unread hide">
+                    <h3><a href="#">已读消息</a></h3>
+                    <li>
+                        <p>
+                            <a href="#">suweiqing</a>
+                            回复了你的问题
+                            <a href="#">开发链接回复快乐家黄庭坚人多地方</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#">suweiqing</a>
+                            回复了你的问题
+                            <a href="#">开发链接回复快乐家黄庭坚人多地方</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#">suweiqing</a>
+                            回复了你的问题
+                            <a href="#">开发链接回复快乐家黄庭坚人多地方</a>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--内容右部分-->
+        <div class="col-lg-3 main-right">
+
+        </div>
+    </div>
+</main>
+
+
+<script>
+    $(function () {
+        // 标题栏tab切换特效
+        $('.tab li').on('click', function () {
+            $(this).addClass('hover').siblings().removeClass('hover');
+            $('.body ul').eq($(this).index()).removeClass('hide').siblings().addClass('hide');
+        })
+        $('.navbar-left li:nth-of-type(2)').addClass('active').siblings().removeClass('active');
+    })
+</script>

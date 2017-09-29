@@ -1,0 +1,145 @@
+body {
+    background: #eee;
+}
+a, a:hover {
+    text-decoration: none !important;
+}
+.container {
+    padding: 0;
+}
+ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.hide {
+    display: none;
+}
+.navbar {
+    border-radius: 0;
+    border: none;
+}
+.navbar-brand {
+    padding: 5px;
+}
+.navbar-brand img {
+    height: 100%;
+}
+.navbar-left {
+    margin-left: 50px;
+}
+.navbar-inverse {
+    background: #563D7C;
+    border-color: #563D7C;
+}
+.navbar-left li a {
+    color: #fff !important;
+}
+.navbar .navbar-left li.active a {
+    background: #6E4E9E !important;
+    color: #fff !important;
+}
+.navbar-left li:hover {
+    background: #6E4E9E;
+    color: #fff;
+}
+.tell {
+    position: relative;
+}
+.tell .badge {
+    background: #f33;
+    position: absolute;
+    right: 0;
+    top: 5px;
+}
+.container {
+    position: relative;
+}
+.publish {
+    position: absolute;
+    top: 0;
+    right: 50px;
+    margin-top: 9px;
+    padding: 6px 10px;
+    background: rgb(89, 176, 255);
+    color: #fff;
+    border-radius: 3px;
+}
+.publish:hover {
+    background: rgb(77, 170, 255);
+    color: #fff;
+}
+.my {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 50px;
+    margin-left: 10px;
+}
+.my img {
+    height: 32px;
+    margin-top: 9px;
+    border-radius: 3px;
+}
+.navbar .container {
+    position: relative;
+}
+.setting {
+    position: absolute;
+    right: 0;
+    bottom: -101px;
+    display: inline-block;
+    width: 100px;
+    border: 1px solid #cfcfcf;
+    border-top: none;
+    background: #fff;
+    display: none;
+    z-index: 999;
+    border-radius: 0px 0px 5px 5px;
+    box-shadow: 0 5px 5px rgba(0,0,0,.1);
+}
+.setting li {
+    height: 50px;
+    line-height: 50px;
+    cursor: pointer;
+    padding-left: 10px;
+}
+.setting li:hover {
+    background: #f0f0f0;
+}
+.setting li:first-child {
+    border-bottom: 1px solid #f0f0f0;
+}
+.setting li a {
+    color: #666;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+footer {
+    margin-top: 50px;
+}
+.wrapper {
+    border-top: 1px solid #E5E5E5;
+    border-bottom: 1px solid #E5E5E5;
+    padding: 30px 0;
+}
+.wrapper p {
+    margin: 5px 0;
+    color: #888;
+}
+.footer-list {
+    color: #888;
+}
+.footer-list ul li {
+    padding: 5px 0;
+}
+.footer-list ul li:first-child {
+    padding-bottom: 15px;
+}
+.copy {
+    text-align: center;
+    color: #888;
+    margin: 30px 0;
+}

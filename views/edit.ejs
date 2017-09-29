@@ -1,0 +1,63 @@
+
+<!--主体内容-->
+<main>
+    <div class="container">
+        <div class="col-lg-9 main-left">
+            <div class="title">
+                <a href="#" class="pull-left discover">
+                    <span class="fa fa-edit"></span>
+                    编辑
+                </a>
+            </div>
+            <div class="body">
+                <form action="">
+                    <div class="different">
+                        <p>问题的分类: </p>
+                        <select name="" id="">
+                            <option value="share">分享</option>
+                            <option value="ask">问答</option>
+                            <option value="job">招聘</option>
+                        </select>
+                        <div class="text-danger hide">
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                            请正确选择板块
+                        </div>
+                    </div>
+                    <div class="headline">
+                        <p>问题的标题: </p>
+                        <input type="text" placeholder="问题标题... ">
+                        <div class="text-danger hide">
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                            问题的长度不能小于10个字符或者大于50个字符
+                        </div>
+                    </div>
+                    <div class="supplement">
+                        <p>问题补充: </p>
+                        <textarea name="" id="question" placeholder="问题支持markdown格式,请注意标记代码"></textarea>
+                        <div class="text-danger hide">
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                            内容不能为空
+                        </div>
+                    </div>
+                    <div class="submit clearfix">
+                        <input type="submit" value="发布问题" class="pull-right">
+                    </div>
+                    <div></div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-3 main-right">
+
+        </div>
+    </div>
+</main>
+
+<script>
+    $(function () {
+        const simplemde = new SimpleMDE({
+            element: $("#question")[0] ,
+            status:false,
+            styleSelectedText:false,
+        });
+    })
+</script>

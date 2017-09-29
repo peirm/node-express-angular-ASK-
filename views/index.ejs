@@ -1,1 +1,125 @@
-我是首页
+
+
+<!--主体内容-->
+<main>
+    <div class="container">
+        <!--左部分-->
+        <div class="col-lg-9 col-md-9 main-left">
+            <!--标题栏-->
+            <div class="title">
+                <a href="#" class="pull-left discover">
+                    <span class="fa fa-bars"></span>
+                    发现
+                </a>
+                <ul class="pull-right tab">
+                    <li><a href="#">分享</a></li>
+                    <li><a href="#">问答</a></li>
+                    <li><a href="#">招聘</a></li>
+                </ul>
+            </div>
+            <!--内容-->
+            <div class="body">
+                <ul>
+                    <li>
+                        <a class="pull-left" href="#"><img src="/images/default-avatar.jpg" alt=""></a>
+                        <div class="list-text">
+                            <h4>
+                                <a href="/question/:id">我的第一个分享</a>
+                                <span class="share">分享</span>
+                                <span class="reply"><a href="#">回复</a><img class="hide" src="/images/default-avatar.jpg" alt=""></span>
+                            </h4>
+                            <p>ssssss 发起了问题 • <span>0</span> 个回复 • <span>11</span> 次浏览 • <span>10</span> 小时前</p>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="pull-left" href="#"><img src="/images/default-avatar.jpg" alt=""></a>
+                        <div class="list-text">
+                            <h4>
+                                <a href="/question/:id">我的第一个分享</a>
+                                <span class="share">分享</span>
+                                <span class="reply"><a href="#">贡献</a><img src="/images/default-avatar.jpg" alt=""></span>
+                            </h4>
+                            <p>ssssss 发起了问题 • 1 个回复 • 11 次浏览 • 10 小时前</p>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="pull-left" href="#"><img src="/images/default-avatar.jpg" alt=""></a>
+                        <div class="list-text">
+                            <h4>
+                                <a href="/question/:id">我的第一个分享</a>
+                                <span class="share">问答</span>
+                                <span class="reply"><a href="#">回复</a><img class="hide" src="/images/default-avatar.jpg" alt=""></span>
+                            </h4>
+                            <p>ssssss 发起了问题 • <span>0</span> 个回复 • <span>11</span> 次浏览 • <span>10</span> 小时前</p>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="pull-left" href="#"><img src="/images/default-avatar.jpg" alt=""></a>
+                        <div class="list-text">
+                            <h4>
+                                <a href="/question/:id">我的第一个分享</a>
+                                <span class="share">招聘</span>
+                                <span class="reply"><a href="#">回复</a><img class="hide" src="/images/default-avatar.jpg" alt=""></span>
+                            </h4>
+                            <p>ssssss 发起了问题 • <span>0</span> 个回复 • <span>11</span> 次浏览 • <span>10</span> 小时前</p>
+                        </div>
+                    </li>
+                </ul>
+                <span class="page pull-right">1</span>
+            </div>
+        </div>
+        <!--右部分-->
+        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs main-right">
+            <% if(user) { %>
+                <!--个人信息-->
+                <div class="message">
+                    <h4>个人信息</h4>
+                    <div>
+                        <img class="pull-left" src="/images/default-avatar.jpg" alt="">
+                        <a href="/user/:name">sssss</a></span>
+                        <a href="/user/:name" class="more pull-right">更多</a>
+                    </div>
+                    <p>这家伙很懒,什么都没有留下..</p>
+                </div>
+            <% } %>
+            <!--热门用户-->
+            <div class="hot">
+                <h4>热门用户<a href="/users" class="more pull-right">更多</a></h4>
+                <div>
+                    <img class="pull-left" src="/images/default-avatar.jpg" alt="">
+                    <a href="/user/:name">sssss</a></span>
+                    <p>积 分 : 75 , 发 表 : 1</p>
+                </div>
+                <div>
+                    <img class="pull-left" src="/images/default-avatar.jpg" alt="">
+                    <a href="/user/:name">sssss</a></span>
+                    <p>积 分 : 75 , 发 表 : 1</p>
+                </div>
+                <div>
+                    <img class="pull-left" src="/images/default-avatar.jpg" alt="">
+                    <a href="/user/:name">sssss</a></span>
+                    <p>积 分 : 75 , 发 表 : 1</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    $(function () {
+        // 内容部分筛选特效
+        $('.main-left .tab li').on('click', function () {
+            $(this).addClass('hover').siblings().removeClass('hover');
+            const textOne = $(this).children('a');
+            const textTwo = $('.main-left .share');
+            textTwo.each(function (i) {
+                if(textOne.html() == $(this).html()) {
+                    $(this).parents('li').removeClass('hide');
+                }
+                else {
+                    $(this).parents('li').addClass('hide');
+                }
+            })
+        })
+    })
+</script>

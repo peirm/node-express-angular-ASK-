@@ -1,0 +1,124 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+    <link rel="icon" href="/images/bootstrap-logo.png">
+    <!--加载图标库-->
+    <link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.css">
+    <!--加载jquery-->
+    <script src="/plugins/jquery/dist/jquery.js"></script>
+    <!--加载angularJS-->
+    <script src="/plugins/angular/angular.js"></script>
+    <!--控制器文件-->
+    <script type="text/javascript" src="/javascripts/controller.js"></script>
+    <!--加载markdown编辑器-->
+    <link rel="stylesheet" href="/plugins/simplemde-markdown-editor/dist/simplemde.min.css">
+    <script src="/plugins/simplemde-markdown-editor/dist/simplemde.min.js"></script>
+    <!--加载bootstrap前端UI框架-->
+    <link rel="stylesheet" href="/plugins/bootstrap/dist/css/bootstrap.css">
+    <script src="/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+    <!--引入公共部分的样式-->
+    <link rel="stylesheet" href="/stylesheets/indexTemplate.css">
+    <!--动态的引入某个页面的静态资源-->
+    <link rel="stylesheet" href="<%= resource %>" />
+    <link rel="stylesheet" href="/plugins/bootstrap-fileinput/bootstrap-fileinput.css">
+    <script src="/plugins/bootstrap-fileinput/bootstrap-fileinput.js"></script>
+</head>
+<body>
+<!--导航栏-->
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <!--响应式汉堡按钮、logo-->
+        <div class="navbar-header pull-left">
+            <button style="margin-left: 20px" type="button" class="navbar-toggle pull-left" data-toggle="collapse" data-target="#example-navbar-collapse">
+                <span class="sr-only">切换导航</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand hidden-xs" href="/"><img src="/images/logo.png" alt="logo"></a>
+        </div>
+        <!--导航栏-->
+        <div class="collapse navbar-collapse pull-left col-xs-12" id="example-navbar-collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li class="active"><a href="/"><span class="fa fa-id-card"></span> 发现</a></li>
+                <% if(user) { %>
+                    <li><a href="/my/messages" class="tell"><span class="fa fa-bell-o"></span><span class="badge">5</span> 通知</a></li>
+                <% } %>
+            </ul>
+        </div>
+        <% if(user) { %>
+            <!--右侧头像-->
+            <a class="my pull-right" href="#">
+                <img src="<%= user.avatar %>" alt="">
+            </a>
+            <!--发布文章按钮-->
+            <a  class="publish pull-right" href="/question/create">
+                <span class="fa fa-book"></span>&#x3000;发起
+            </a>
+            <!--用户设置-->
+            <ul class="setting">
+                <li><a href="/setting"><span class="fa fa-cogs"></span>&#x3000;设置</a></li>
+                <li><a href="/logout"><span class="fa fa-sign-out"></span>&#x3000;退出</a></li>
+            </ul>
+        <% } else { %>
+            <!--登录、注册按钮-->
+            <div class="button pull-right">
+                <a class="login" href="/login">登录</a>
+                <a class="register" href="/register">注册</a>
+            </div>
+        <% } %>
+
+    </div>
+</nav>
+
+<%- body %>
+
+<!--尾部-->
+<footer>
+    <div class="wrapper">
+        <div class="container">
+            <!--尾部左部分-->
+            <div class="footer-logo col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <img src="/images/zhiyou.png" alt="">
+                <p>本网站所有的解释权归智游教育集团,由教学部nodeJS组成员整理,不允许任何人以任何目的进行传播和商业运作</p>
+            </div>
+            <!--尾部右部分-->
+            <div class="footer-list col-lg-5 col-md-5 col-sm-12 col-xs-12 pull-right">
+                <ul class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <li>关于</li>
+                    <li>关于我们</li>
+                    <li>广告合作</li>
+                    <li>友情链接</li>
+                </ul>
+                <ul class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <li>联系方式</li>
+                    <li>联系QQ</li>
+                    <li>电子邮件</li>
+                </ul>
+                <ul class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <li>旗下网站</li>
+                    <li>智游集团</li>
+                    <li>苏威晴的个人博客</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <p class="copy">本网站的所有权归智游集团学员苏威晴所有</p>
+</footer>
+</body>
+</html>
+<script>
+    $(function () {
+        // 导航栏显示隐藏特效
+        $('.my').add('.setting').on('mouseover', function () {
+            $('.setting').css('display', 'block');
+        })
+        $('.my').add('.setting').on('mouseout', function () {
+            $('.setting').css('display', 'none');
+        })
+    })
+</script>
