@@ -68,7 +68,7 @@ main .container {
 }
 .submit input {
     border: none!important;
-    background-color: #7DD07C;
+    background-color: #5bbf5a;
     color: #fff;
     height: 38px;
     padding: 0 10px;
@@ -76,7 +76,10 @@ main .container {
     font-size: 14px;
     min-width: 120px;
     border-radius: 4px;
-    cursor: no-drop;
     outline: none;
+}
+input[disabled]{
+    cursor: no-drop !important;
+    background: #7DD07C !important;
 }
 

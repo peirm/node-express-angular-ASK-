@@ -23,5 +23,10 @@ module.exports = {
     //cookie的名字
     auth_name: 'ask_system',
     //cookie的加密key值
-    cookie_secret: 'suweiqing'
+    cookie_secret: 'suweiqing',
+    categorys: [
+        ['ask', '问答'],
+        ['share', '分享'],
+        ['job', '招聘']
+    ]
 }
