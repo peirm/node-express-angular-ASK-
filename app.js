@@ -38,8 +38,11 @@ app.use(session({
 app.use(auth.authUser);
 //将session信息保存在本地
 app.use((req, res, next) => {
-  res.locals.user = req.session.user;
-  next();
+    //将用户登录信息保存在本地
+    res.locals.user = req.session.user;
+    //将用户的消息数量保存在本地
+    res.locals.msg_count = req.session.msg_count;
+    next();
 })
 app.use(express.static(path.join(__dirname, 'public')));
 

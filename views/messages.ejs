@@ -19,72 +19,31 @@
             <div class="body">
                 <!--未读消息列表-->
                 <ul class="read">
-                    <h3><a href="#">全部已读</a></h3>
-                    <li>
-                        <p>
-                            <a href="#">suweiqing</a>
-                            回复了你的问题
-                            <a href="#">开发链接回复快乐家黄庭坚人多地方</a>
-                            <span class="sure pull-right"><a href="#">确认已读</a></span>
-                        </p>
-                    </li>
-                    <li>
-                        <p>
-                            <a href="#">suweiqing</a>
-                            回复了你的问题
-                            <a href="#">开发链接回复快乐家黄庭坚人多地方</a>
-                            <span class="sure pull-right"><a href="#">确认已读</a></span>
-                        </p>
-                    </li>
-                    <li>
-                        <p>
-                            <a href="#">suweiqing</a>
-                            回复了你的问题
-                            <a href="#">开发链接回复快乐家黄庭坚人多地方</a>
-                            <span class="sure pull-right"><a href="#">确认已读</a></span>
-                        </p>
-                    </li>
-                    <li>
-                        <p>
-                            <a href="#">suweiqing</a>
-                            回复了你的问题
-                            <a href="#">开发链接回复快乐家黄庭坚人多地方</a>
-                            <span class="sure pull-right"><a href="#">确认已读</a></span>
-                        </p>
-                    </li>
-                    <li>
-                        <p>
-                            <a href="#">suweiqing</a>
-                            回复了你的问题
-                            <a href="#">开发链接回复快乐家黄庭坚人多地方</a>
-                            <span class="sure pull-right"><a href="#">确认已读</a></span>
-                        </p>
-                    </li>
+                    <% if(no_read && no_read.length > 0) { %>
+                        <h3><a href="#">全部已读</a></h3>
+                        <% no_read.forEach(function(message) { %>
+                            <% if(message.type == 'at') { %>
+                                <% include public/unat %>
+                            <% } %>
+                        <% }) %>
+                    <% } else { %>
+                    <br>
+                    <p>没有未读消息...</p>
+                    <% } %>
                 </ul>
                 <!--已读消息列表-->
                 <ul class="unread hide">
-                    <h3><a href="#">已读消息</a></h3>
-                    <li>
-                        <p>
-                            <a href="#">suweiqing</a>
-                            回复了你的问题
-                            <a href="#">开发链接回复快乐家黄庭坚人多地方</a>
-                        </p>
-                    </li>
-                    <li>
-                        <p>
-                            <a href="#">suweiqing</a>
-                            回复了你的问题
-                            <a href="#">开发链接回复快乐家黄庭坚人多地方</a>
-                        </p>
-                    </li>
-                    <li>
-                        <p>
-                            <a href="#">suweiqing</a>
-                            回复了你的问题
-                            <a href="#">开发链接回复快乐家黄庭坚人多地方</a>
-                        </p>
-                    </li>
+                    <% if(read && read.length > 0) { %>
+                        <h3><a href="#">已读消息</a></h3>
+                        <% read.forEach(function(message) { %>
+                            <% if(message.type == 'at') { %>
+                                <% include public/at %>
+                            <% } %>
+                        <% }) %>
+                    <% } else { %>
+                    <br>
+                    <p>没有已读消息...</p>
+                    <% } %>
                 </ul>
             </div>
         </div>

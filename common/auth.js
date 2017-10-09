@@ -2,7 +2,10 @@
  * Created by su on 2017/9/26.
  */
 const setting = require('../setting');
+//引入user表
 const User = require('../model/User');
+//引入Message表
+const Message = require('../model/Message');
 const auth = {
     //判断用户未登录的中间件
     userRequired: (req, res, next) => {
@@ -30,7 +33,12 @@ const auth = {
     authUser: (req, res, next) => {
         //中间件, 所有的请求都要经过它, 我们在这来判断用户的登录情况
         if(req.session.user) {
-            next();//用户已经登录情况下, 直接下一步
+            //添加用户消息数量
+            Message.getMessagesCount(req.session.user._id, (err, count) => {
+                req.session.msg_count = count;
+                next();//用户已经登录情况下, 直接下一步
+            })
+
         }
         else {
             //需要通过cookie去生成session
@@ -54,9 +62,12 @@ const auth = {
                         }
                         else {
                             //3.结束
-                            req.session.user = user;
-                            console.log(req.session.user);
-                            next();
+                            //查询出用户的消息数量
+                            Message.getMessagesCount(user._id, (err, count) => {
+                                req.session.msg_count = count;
+                                req.session.user = user;
+                                next();
+                            })
                         }
                     }
                 })

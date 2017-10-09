@@ -9,6 +9,8 @@ const validator = require('validator');
 const Question = require('../model/Question');
 //引入用户表
 const User = require('../model/User');
+//引入at模块
+const at = require('../common/at');
 //新建问题的处理函数
 exports.create = (req, res, next) => {
     res.render('create', {
@@ -51,7 +53,9 @@ exports.postCreate = (req, res, next) => {
                 res.json({url: `/question/${question._id}`})
             })
             //发送at消息
-            // at.sendMessageToMentionUsers(content, )
+            at.sendMessageToMentionUsers(content, question._id, req.session.user._id, (err, msg) => {
+                console.log(msg);
+            });
         }).catch(err => {
             return res.end(err);
         })

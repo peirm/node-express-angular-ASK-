@@ -78,7 +78,6 @@ exports.updateUser = (req, res, next) => {
     else {
         //查询数据库对应的用户信息
         User.getUserById(id, (err, user) => {
-            console.log(user);
             if(err) {
                 return res.end(err);
             }

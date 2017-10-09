@@ -46,7 +46,14 @@
             <ul class="nav navbar-nav navbar-left">
                 <li class="active"><a href="/"><span class="fa fa-id-card"></span> 发现</a></li>
                 <% if(user) { %>
-                    <li><a href="/my/messages" class="tell"><span class="fa fa-bell-o"></span><span class="badge">5</span> 通知</a></li>
+                    <li>
+                        <a href="/my/messages" class="tell"><span class="fa fa-bell-o"></span>
+                            <% if(msg_count) { %>
+                                <span class="badge"><%= msg_count %></span>
+                            <% } %>
+                            通知
+                        </a>
+                    </li>
                 <% } %>
             </ul>
         </div>

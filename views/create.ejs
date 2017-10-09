@@ -30,7 +30,7 @@
                     <div class="headline">
                         <p>问题的标题: </p>
                         <input name="title" ng-model="formData.title" ng-minlength="8" ng-maxlength="30"
-                               type="text" placeholder="问题标题... ">
+                               type="text" placeholder="问题标题... " required>
                         <div ng-cloak ng-show="createForm.title.$invalid && !createForm.title.$pristine" class="text-danger">
                             <span class="glyphicon glyphicon-info-sign"></span>
                             问题的长度不能小于8个字符或者大于30个字符

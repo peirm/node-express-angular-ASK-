@@ -55,6 +55,33 @@ ul, li {
 .container {
     position: relative;
 }
+.button {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.button a {
+    display: inline-block;
+    width: 80px;
+    height: 33px;
+    line-height: 33px;
+    color: #fff;
+    text-align: center;
+    margin: 8px 5px 0 5px;
+    border-radius: 5px;
+}
+.login {
+    background: #59c0ff;
+}
+.login:hover {
+    background: #4DAAFF;
+}
+.register {
+    background: #5bbf5a;
+}
+.register:hover {
+    background: #38B836;
+}
 .publish {
     position: absolute;
     top: 0;
@@ -87,13 +114,14 @@ ul, li {
 .setting {
     position: absolute;
     right: 0;
-    bottom: -101px;
+    top: 50px;
     display: inline-block;
     width: 100px;
+    display: none;
     border: 1px solid #cfcfcf;
     border-top: none;
     background: #fff;
-    display: none;
+
     z-index: 999;
     border-radius: 0px 0px 5px 5px;
     box-shadow: 0 5px 5px rgba(0,0,0,.1);
