@@ -1,9 +1,9 @@
-<li>
+<li class="read-item" message-id="<%= message._id %>">
     <p>
         <a href="#"><%= message.author_id.name %></a>
         在
         <a href="#"><%= message.question_id.title %></a>
         中@我
-        <span class="sure pull-right"><a href="#">确认已读</a></span>
+        <span ng-click="readOne(<%= index %>)" class="sure pull-right"><a href="#">确认已读</a></span>
     </p>
 </li>

@@ -5,6 +5,10 @@
 const mongoose = require('mongoose');
 const shortid = require('shortid');
 const Schema = mongoose.Schema;
+//将基础的方法引入进来
+const BaseModel = require('./base_model');
+const _ = require('lodash');
+const setting = require('../setting');
 const QuestionSchema = new Schema({
     _id: {
         type: String,
@@ -77,6 +81,34 @@ const QuestionSchema = new Schema({
         default: false
     }
 })
-const Question = mongoose.model('Question', QuestionSchema);
+//创建一个虚拟的字段
+QuestionSchema.virtual('categoryName').get(function () {
+    let category = this.category;
+    let pair = _.find(setting.categorys, function (item) {
+        return item[0] == category;
+    })
+    if(pair) {
+        return pair[1];
+    }
+    else {
+        return '';
+    }
+})
+QuestionSchema.statics = {
+    //获取一个问题的相关信息
+    getFullQuestion: (id, callback) => {
+        //暂时可以先不去查询last_reply这个信息
+        Question.findOne({'_id': id, 'deleted': false}).populate('author')
+            .populate('last_reply_author').exec(callback);
+    },
+    //获取作者的其它文章列表
+    getOtherQuestions: (author, question_id, callback) => {
+        Question.find({'author': author, '_id': {$nin:[question_id]}}).limit(5)
+            .sort({'last_reply_time': -1, 'create_time': -1}).exec(callback);
+    }
+}
 
+//当前的模型就会有BaseModel里面的方法了
+QuestionSchema.plugin(BaseModel);
+const Question = mongoose.model('Question', QuestionSchema);
 module.exports = Question;

@@ -45,7 +45,7 @@ exports.postCreate = (req, res, next) => {
                 if(err) {
                     return res.end(err);
                 }
-                user.score += 1;
+                user.score += 5;
                 user.article_count += 1;
                 user.save();
                 req.session.user = user;
@@ -54,7 +54,7 @@ exports.postCreate = (req, res, next) => {
             })
             //发送at消息
             at.sendMessageToMentionUsers(content, question._id, req.session.user._id, (err, msg) => {
-                console.log(msg);
+                //console.log(msg);
             });
         }).catch(err => {
             return res.end(err);
@@ -79,9 +79,42 @@ exports.delete = (req, res, next) => {
 }
 //查询问题的处理函数
 exports.index = (req, res, next) => {
-    res.render('question', {
-        title: '问题详情',
-        layout: 'indexTemplate',
-        resource: mapping.question
+    //问题的ID
+    let question_id = req.params.id;
+    //当前登录的用户
+    let currentUser = req.session.user;
+    //1.问题的信息
+    //2.问题的回复信息
+    //3.问题作者的其他相关文章推荐
+    Question.getFullQuestion(question_id, (err, question) => {
+        if(err) {
+            return res.end(err);
+        }
+        if(question == null) {
+            return res.render('error', {
+                title: '问题详情',
+                layout: 'indexTemplate',
+                resource: mapping.question,
+                message: '该问题不存在或者已经被删除',
+                error: ''
+            })
+        }
+        else {
+            //问题的内容如果有@用户, 给@用户添加一个连接
+            question.content = at.linkUsers(question.content);
+            //问题的访问量+1
+            question.click_num += 1;
+            question.save();
+            Question.getOtherQuestions(question.author._id, question._id, (err, questions) => {
+                return res.render('question', {
+                    title: '问题详情',
+                    layout: 'indexTemplate',
+                    resource: mapping.question,
+                    question: question,
+                    others: questions
+                })
+            })
+        }
     })
+
 }

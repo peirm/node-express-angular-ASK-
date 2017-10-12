@@ -9,22 +9,22 @@ exports.index = (req, res, next) => {
     //未读消息和已读消息两种消息分别查询出来, 放到这个页面中去
     //读取的是当前登录用户的已读消息和未读消息
     let mission1 = new Promise((resolve, reject) => {
-        Message.getUnReadMessages(req.session.user._id, (err, datalist) => {
+        Message.getUnReadMessages(req.session.user._id, (err, undatalist) => {
+            if(err) {
+                reject(err);
+            }
+            else {
+                resolve(undatalist);
+            }
+        })
+    })
+    let mission2 = new Promise((resolve, reject) => {
+        Message.getReadMessages(req.session.user._id, (err, datalist) => {
             if(err) {
                 reject(err);
             }
             else {
                 resolve(datalist);
-            }
-        })
-    })
-    let mission2 = new Promise((resolve, reject) => {
-        Message.getReadMessages(req.session.user._id, (err, undatalist) => {
-            if(err) {
-                reject(err);
-            }
-            else {
-                resolve(undatalist)
             }
         })
     })
@@ -36,7 +36,8 @@ exports.index = (req, res, next) => {
             layout: 'indexTemplate',
             resource: mapping.messages,
             no_read: no_read,
-            read: read
+            read: read,
+            readLength: read.length
         })
     }).catch(err => {
         console.log(err);
@@ -44,9 +45,21 @@ exports.index = (req, res, next) => {
 }
 //更新某个消息的处理函数
 exports.updateMessage = (req, res, next) => {
-
+    let id = req.params.id;
+    Message.updateMessage(id, (err, result) => {
+        if(err) {
+            return res.end(err);
+        }
+        res.end('success');
+    })
 }
 //已读所有消息的处理函数
 exports.updateAllMessage = (req, res, next) => {
-
+    let user_id = req.session.user._id;
+    Message.updateAllMessage(user_id, (err, result) => {
+        if(err) {
+            return res.end(err);
+        }
+        res.end('success');
+    })
 }

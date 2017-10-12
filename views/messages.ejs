@@ -1,6 +1,6 @@
 
 <!--主体内容-->
-<main>
+<main ng-app="messageApp" ng-controller="messageController">
     <div class="container">
         <!--内容左部分-->
         <div class="col-lg-9 main-left">
@@ -20,31 +20,38 @@
                 <!--未读消息列表-->
                 <ul class="read">
                     <% if(no_read && no_read.length > 0) { %>
-                        <h3><a href="#">全部已读</a></h3>
-                        <% no_read.forEach(function(message) { %>
+                        <h3><a href="#" ng-click="allRead()">全部已读</a></h3>
+                        <% no_read.forEach(function(message, index) { %>
                             <% if(message.type == 'at') { %>
                                 <% include public/unat %>
                             <% } %>
                         <% }) %>
                     <% } else { %>
-                    <br>
-                    <p>没有未读消息...</p>
+                        <br>
+                        <p>没有未读消息...</p>
                     <% } %>
                 </ul>
                 <!--已读消息列表-->
                 <ul class="unread hide">
                     <% if(read && read.length > 0) { %>
                         <h3><a href="#">已读消息</a></h3>
-                        <% read.forEach(function(message) { %>
+                        <% read.forEach(function(message, index) { %>
                             <% if(message.type == 'at') { %>
                                 <% include public/at %>
                             <% } %>
                         <% }) %>
                     <% } else { %>
-                    <br>
-                    <p>没有已读消息...</p>
+                        <br>
+                        <p>没有已读消息...</p>
                     <% } %>
+                    <!--分页-->
+                    <div style="margin: 20px 5px" class="btn-group pull-right">
+                        <% for(let i = 1; i <= Math.ceil(readLength/5); i++) { %>
+                        <button type="button" class="pageButton btn btn-default"><%= i %></button>
+                        <% } %>
+                    </div>
                 </ul>
+
             </div>
         </div>
         <!--内容右部分-->

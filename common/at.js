@@ -28,7 +28,7 @@ const at = {
         if(results) {
             for(let i = 0, l = results.length; i < l; i++) {
                 let s = results[i];
-                s = s.slice(l);
+                s = s.slice(1);
                 names.push(s);
             }
         }
@@ -49,7 +49,6 @@ const at = {
             users = users.filter(function (user) {
                 return user._id != authorId;
             })
-            console.log(users);
             //循环所有的目标用户, 将消息存入消息表中
             //如果users为空, 证明:你要@的人不存在, 所以, 没有必要在创建对应的消息
             if(users.length != 0) {
@@ -66,6 +65,21 @@ const at = {
                 })
             }
         })
+    },
+    linkUsers: (text) => {
+        let users = at.fetchUser(text);
+        //循环@人名数组
+        if(users.length == 0) {
+            return text;
+        }
+        else {
+            for(let i = 0, l = users.length; i < l; i++) {
+                //每一个人名
+                let name = users[i];
+                text = text.replace(new RegExp('@' + name + '\\b(?!\\])', 'g'), '[@' + name + '](/user/' + name + ')');
+            }
+            return text;
+        }
     }
 }
 module.exports = at;

@@ -5,6 +5,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const shortid = require('shortid');
+//将基础的方法引入进来
+const BaseModel = require('./base_model');
 const MessageSchema = new Schema({
     _id: {
         type: String,
@@ -46,8 +48,8 @@ const MessageSchema = new Schema({
 })
 
 MessageSchema.statics = {
-    //获取消息的数量
-    getMessagesCount: (id, callback) => {
+    //获取未读消息的数量
+    getMessagesNoReadCount: (id, callback) => {
         Message.count({'target_id': id, 'has_read': false}, callback);
     },
     //读取未读消息
@@ -58,9 +60,19 @@ MessageSchema.statics = {
     //读取已读消息
     getReadMessages: (id, callback) => {
         Message.find({'target_id': id, 'has_read': true}, null, {sort: '-create_time', limit: 20}).populate('author_id')
-            .populate('target_id').populate('question_id').exec(callback)
+            .populate('target_id').populate('question_id').exec(callback);
+    },
+    //更新某条消息为已读
+    updateMessage: (id, callback) => {
+        Message.update({'_id': id}, {$set: {'has_read': true}}).exec(callback);
+    },
+    //更新某个用户所有未读消息
+    updateAllMessage: (user_id, callback) => {
+        Message.update({'target_id': user_id}, {$set: {'has_read': true}}, {multi: true}).exec(callback);
     }
 }
-const Message = mongoose.model('Message', MessageSchema);
 
+//当前的模型就会有BaseModel里面的方法了
+MessageSchema.plugin(BaseModel);
+const Message = mongoose.model('Message', MessageSchema);
 module.exports = Message;
