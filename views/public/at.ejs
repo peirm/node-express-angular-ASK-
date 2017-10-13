@@ -1,8 +1,8 @@
 <li class="read-list hide" i="<%= index + 1 %>">
     <p>
-        <a href="#"><%= message.author_id.name %></a>
+        <a href="/user/<%= message.author_id.name %>"><%= message.author_id.name %></a>
         在
-        <a href="#"><%= message.question_id.title %></a>
+        <a href="/question/<%= message.question_id._id %>"><%= message.question_id.title %></a>
         中@我
     </p>
 </li>

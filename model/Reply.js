@@ -51,5 +51,12 @@ const ReplySchema = new Schema({
 })
 //当前的模型就会有BaseModel里面的方法了
 ReplySchema.plugin(BaseModel);
+
+ReplySchema.statics = {
+    getRepliesByQuestionId: (question_id, callback) => {
+        Reply.find({'question_id': question_id}).sort({'create_time': 1}).populate('author').exec(callback);
+    }
+}
+
 const Reply = mongoose.model('Reply', ReplySchema);
 module.exports = Reply;

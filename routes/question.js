@@ -9,6 +9,8 @@ const validator = require('validator');
 const Question = require('../model/Question');
 //引入用户表
 const User = require('../model/User');
+//引入reply表
+const Reply = require('../model/Reply');
 //引入at模块
 const at = require('../common/at');
 //新建问题的处理函数
@@ -104,13 +106,23 @@ exports.index = (req, res, next) => {
         //问题的访问量+1
         question.click_num += 1;
         question.save();
-        Question.getOtherQuestions(question.author._id, question._id, (err, questions) => {
-            return res.render('question', {
-                title: '问题详情',
-                layout: 'indexTemplate',
-                resource: mapping.question,
-                question: question,
-                others: questions
+        //来获取文章对应的所有的回复
+        //reply表
+        Reply.getRepliesByQuestionId(question._id, (err, replies) => {
+            if(replies.length > 0) {
+                replies.forEach((reply, index) => {
+                    reply.content = at.linkUsers(reply.content);
+                })
+            }
+            Question.getOtherQuestions(question.author._id, question._id, (err, questions) => {
+                return res.render('question', {
+                    title: '问题详情',
+                    layout: 'indexTemplate',
+                    resource: mapping.question,
+                    question: question,
+                    others: questions,
+                    replies: replies
+                })
             })
         })
     })

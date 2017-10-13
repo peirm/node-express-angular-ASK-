@@ -223,9 +223,13 @@ main .container {
     padding: 6px 8px;
     border-radius: 4px;
 }
+.comment-list-content .meta a {
+    border: 1px solid #eee;
+}
 .comment-list-content .meta a:hover {
     background: #499EF3;
     color: #fff;
+    border: 1px solid #499EF3;
 
 }
 
@@ -279,4 +283,8 @@ main .container {
 input[disabled] {
     cursor: no-drop !important;
     background: #7DD07C !important;
+}
+
+.markdown-text li {
+    border: none;
 }

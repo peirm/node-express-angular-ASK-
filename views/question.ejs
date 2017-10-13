@@ -22,6 +22,10 @@
                     <a href="#"><span class="fa fa-remove"></span> 删除</a>
                     <a class="pull-right" href=""><span class="fa fa-share-square-o"></span> 分享</a>
                 </div>
+
+                <!--回复区域-->
+                <% include public/reply-list %>
+
                 <!--回复表单区域-->
                 <div class="leaveMessage">
                     <form id="reply_form" target="/<%= question._id %>/reply" ng-submit="postForm()">
