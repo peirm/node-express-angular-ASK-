@@ -99,22 +99,20 @@ exports.index = (req, res, next) => {
                 error: ''
             })
         }
-        else {
-            //问题的内容如果有@用户, 给@用户添加一个连接
-            question.content = at.linkUsers(question.content);
-            //问题的访问量+1
-            question.click_num += 1;
-            question.save();
-            Question.getOtherQuestions(question.author._id, question._id, (err, questions) => {
-                return res.render('question', {
-                    title: '问题详情',
-                    layout: 'indexTemplate',
-                    resource: mapping.question,
-                    question: question,
-                    others: questions
-                })
+        //问题的内容如果有@用户, 给@用户添加一个连接
+        question.content = at.linkUsers(question.content);
+        //问题的访问量+1
+        question.click_num += 1;
+        question.save();
+        Question.getOtherQuestions(question.author._id, question._id, (err, questions) => {
+            return res.render('question', {
+                title: '问题详情',
+                layout: 'indexTemplate',
+                resource: mapping.question,
+                question: question,
+                others: questions
             })
-        }
+        })
     })
 
 }

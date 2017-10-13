@@ -24,7 +24,7 @@
                 </div>
                 <!--回复表单区域-->
                 <div class="leaveMessage">
-                    <form action="">
+                    <form id="reply_form" target="/<%= question._id %>/reply" ng-submit="postForm()">
                         <div class="leave-head">
                             <a href="/user/<%= user.name %>"><img src="<%= user.avatar %>" alt=""></a>
                             <span><%= user.name %></span>
@@ -32,7 +32,7 @@
                         <div class="leave-body">
                             <textarea class="markdown" name="" id="question" cols="30" rows="10"></textarea>
                         </div>
-                        <div class="leave-foot"><input type="submit" class="pull-right" value="提交回答"></div>
+                        <div class="leave-foot"><input id="reply-button" type="submit" class="pull-right" value="提交回答"></div>
                     </form>
                 </div>
             </div>

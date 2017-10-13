@@ -275,3 +275,8 @@ main .container {
     color: #999;
 }
 
+
+input[disabled] {
+    cursor: no-drop !important;
+    background: #7DD07C !important;
+}
