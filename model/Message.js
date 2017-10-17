@@ -33,10 +33,16 @@ const MessageSchema = new Schema({
         ref: 'Question' //关联Question表
     },
     //用户在回复某个人的时候, 或者在回复中@某个人的时候, 这个reply_id会记录对应的回复的ID
+    //这条消息所在的一级回复的ID
     reply_id: {
         type: String,
         require: true,
         ref: 'Reply' //关联Reply表
+    },
+    //这条消息所在的二级回复的ID
+    comment_id: {
+        type: String,
+        ref: 'Comment'
     },
     has_read: {
         type: Boolean,

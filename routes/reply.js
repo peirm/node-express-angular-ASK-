@@ -36,7 +36,7 @@ exports.add = (req, res, next) => {
             reply.question_id.save();
             return reply;
         }).then(reply => {
-            //给当前@的人发送消息, 里面不包含作者
+            //3.给当前@的人发送消息, 里面不包含作者
             User.findOne({'_id': reply.question_id.author}).then(author => {
                 let author_name = author.name;
                 let regex = new RegExp('@' + author_name + '\\b(?!\\])', 'g');
@@ -61,7 +61,7 @@ exports.add = (req, res, next) => {
             let question_author = reply.question_id.author;
             if(question_author != req.session.user._id) {
                 //发消息
-                message.sendReplyMessage(question_author, req.session.user._id, reply.question_id, reply._id);
+                message.sendReplyMessage(question_author, req.session.user._id, reply.question_id, reply._id, null);
             }
             return res.json({message: 'success'});
         }).catch(err => {
