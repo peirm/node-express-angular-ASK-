@@ -14,6 +14,8 @@ const user = require('./routes/user');
 const message = require('./routes/message');
 //引入一级回复的处理函数
 const reply = require('./routes/reply');
+//引入二级回复的处理函数
+const comment = require('./routes/comment');
 //引入权限文件
 const auth = require('./common/auth');
 
@@ -44,6 +46,8 @@ router.post('/question/:id/edit', auth.userRequired, question.postEdit);
 router.get('/question/:id/delete', auth.userRequired, question.delete);
 //问题页面
 router.get('/question/:id', question.index);
+//显示所有一级回复
+router.get('/question/:id/showReply', auth.userRequired, question.show);
 
 //***************************用户*************************
 //个人设置页面
@@ -71,6 +75,8 @@ router.get('/updateAllMessage', auth.userRequired, message.updateAllMessage);
 
 //****************************回复************************
 router.post('/:question_id/reply', auth.userRequired, reply.add);//一级回复
+router.post('/:question_id/comment', auth.userRequired, comment.add);//二级回复
+
 
 
 module.exports = router;

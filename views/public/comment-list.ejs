@@ -1,0 +1,79 @@
+<!--二级回复部分-->
+<div class="comment-body small-comment-body hide">
+    <ul>
+        <li style="text-align: center" class="comment-body-list clearfix">
+            5条评论
+        </li>
+        <li class="comment-body-list clearfix">
+            <div class="twoReply-content clearfix">
+                <a class="head-img pull-left" href="#"><img src="/images/default-avatar.jpg" alt=""></a>
+                <div class="col-lg-11 comment-list-content clearfix">
+                    <a class="comment-author" href="#">ssssss</a> 回复 <a class="comment-author" href="#">suweiqing</a>
+                    <p>第一条二级留言内容</p>
+                    <div class="meta">
+                        <a href="#">
+                            <span class="fa fa-thumbs-up"></span>
+                            0
+                        </a>
+                        &nbsp;
+                        <a href="#">
+                            <span class="fa fa-thumbs-down"></span>
+                            0
+                        </a>
+                        &#x3000;
+                        <a href="javascript:;" class="twoReply">
+                            <span class="fa fa-commenting"></span>
+                            1 条回复
+                        </a>
+                        <span class="pull-right">15小时前</span>
+                    </div>
+                    <form class="clearfix hide">
+                        <div contenteditable placeholder="回复某个人" class="falseDiv"></div>
+                        <input type="submit" value="取消" class="reply-somebody reply-somebody-cancel pull-right">
+                        <input type="submit" value="评论" class="commentBtn reply-somebody pull-right" disabled>
+                    </form>
+                </div>
+            </div>
+        </li>
+        <li class="comment-body-list clearfix">
+            <div class="twoReply-content clearfix">
+                <a class="head-img pull-left" href="#"><img src="/images/default-avatar.jpg" alt=""></a>
+                <div class="col-lg-11 comment-list-content">
+                    <a class="comment-author" href="#">ssssss</a> 回复 <a class="comment-author" href="#">suweiqing</a>
+                    <p>第二条二级留言内容</p>
+                    <div class="meta">
+                        <a href="#">
+                            <span class="fa fa-thumbs-up"></span>
+                            0
+                        </a>
+                        &nbsp;
+                        <a href="#">
+                            <span class="fa fa-thumbs-down"></span>
+                            0
+                        </a>
+                        &#x3000;
+                        <a href="javascript:;" class="twoReply">
+                            <span class="fa fa-commenting"></span>
+                            1 条回复
+                        </a>
+                        <span class="pull-right">8小时前</span>
+                    </div>
+                    <form class="clearfix hide">
+                        <div contenteditable placeholder="回复某个人" class="falseDiv"></div>
+                        <input type="submit" value="取消" class="reply-somebody reply-somebody-cancel pull-right">
+                        <input type="submit" value="评论" class="commentBtn reply-somebody pull-right" disabled>
+                    </form>
+                </div>
+
+            </div>
+
+        </li>
+    </ul>
+    <div class="page">1</div>
+    <form class="clearfix" action="/<%= reply.question_id %>/comment">
+        <input type="hidden" name="reply_id" value="<%= reply._id %>">
+        <input type="hidden" name="comment_target_id" value="">
+        <div contenteditable placeholder="请写下你的评论..." class="falseDiv falseDiv-two pull-left"></div>
+        <input type="submit" value="评论" class="commentBtn commentBtn-two pull-right" disabled>
+    </form>
+</div>

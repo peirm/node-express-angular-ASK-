@@ -32,6 +32,7 @@ const MessageSchema = new Schema({
         require: true,
         ref: 'Question' //关联Question表
     },
+    //用户在回复某个人的时候, 或者在回复中@某个人的时候, 这个reply_id会记录对应的回复的ID
     reply_id: {
         type: String,
         require: true,

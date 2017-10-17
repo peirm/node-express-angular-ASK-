@@ -108,7 +108,7 @@ exports.index = (req, res, next) => {
         question.save();
         //来获取文章对应的所有的回复
         //reply表
-        Reply.getRepliesByQuestionId(question._id, (err, replies) => {
+        Reply.getFiveRepliesByQuestionId(question_id, (err, replies) => {
             if(replies.length > 0) {
                 replies.forEach((reply, index) => {
                     reply.content = at.linkUsers(reply.content);
@@ -126,5 +126,17 @@ exports.index = (req, res, next) => {
             })
         })
     })
-
+}
+exports.show = (req, res, next) => {
+    let question_id = req.params.id;
+    Reply.getRepliesByQuestionId(question_id, (err, replies) => {
+        if(replies.length > 0) {
+            replies.forEach((reply, index) => {
+                reply.content = at.linkUsers(reply.content);
+            })
+        }
+        res.render('reply-list-all', {
+            replies: replies
+        })
+    })
 }

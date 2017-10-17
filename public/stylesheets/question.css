@@ -186,11 +186,13 @@ main .container {
 }
 .small-comment-body input[type=submit] {
     padding: 3px 15px;
+    height: 32px;
     background: #5bbf5a;
     color: #fff;
     border: none;
-    margin-top: 15px;
+    /*margin-top: 15px;*/
     border-radius: 4px;
+    /*margin-left: 15px;*/
 }
 .small-comment-body input[type=submit]:hover {
     background: #38B836;
@@ -287,4 +289,62 @@ input[disabled] {
 
 .markdown-text li {
     border: none;
+}
+.markdown-text ol li {
+    list-style: decimal;
+}
+.markdown-text ul li {
+    list-style: disc;
+}
+
+#showReply {
+    background: #f9f9f9;
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 40px 20px 80px;
+    cursor: pointer;
+    color: #999;
+}
+#showReply:hover {
+    color: #666;
+    background: #f3f3f3;
+    transition: .2s;
+}
+.comment-body-list form {
+    margin-top: 20px;
+}
+.comment-list-content {
+    color: #666;
+}
+.falseDiv {
+    padding: 5px;
+    min-height: 20px;
+    height: auto;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #f9f9f9;
+    outline: none;
+    transition: .1s;
+}
+.falseDiv-two {
+    display: inline-block;
+    width: 88%;
+}
+.falseDiv:empty:before{
+    content: attr(placeholder);
+    color:#bbb;
+}
+.falseDiv:focus {
+    background: #fff;
+}
+.reply-somebody {
+    margin: 10px 5px;
+}
+.reply-somebody-cancel {
+    background: #59b0ff !important;
+}
+.reply-somebody-cancel:hover {
+    background: #4DAAFF !important;
 }
