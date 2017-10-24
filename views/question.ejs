@@ -10,22 +10,32 @@
                 <!--标题-->
                 <div class="detail-title">
                     <h1><%= question.title %></h1>
-                    <span class="detail-follow-btn"><a href="#">关注&nbsp;&nbsp;|&nbsp;&nbsp;<span class="follow-num">0</span></a></span>
+                    <span id="<%= question._id %>" questionAuthor="<%= question.author._id %>" class="detail-follow-btn">
+                        <a href="javascript:;">
+                            <% if(msg == 'follow') { %>
+                            <span class="text">取消关注</span>
+                            <% } else if(msg == 'unfollow') { %>
+                            <span class="text">关注</span>
+                            <% } %>
+                        </a>
+                    </span>
                 </div>
                 <!--内容-->
                 <div class="detail-content"><%- markdown(question.content) %></div>
                 <!--对内容操作-->
                 <div class="detail-option">
-                    <span><%= question.create_time_ago() %></span>&#x3000;
+                    <span><%= question.update_time_ago() %></span>&#x3000;
                     <span><%= question.click_num %> 次浏览</span>&#x3000;
-                    <a href="/question/:id/edit"><span class="fa fa-edit"></span> 编辑</a>&#x3000;
-                    <a href="#"><span class="fa fa-remove"></span> 删除</a>
+                    <% if(user) { %>
+                    <a class="editQuestion" href="/question/<%= question._id %>/edit"><span class="fa fa-edit"></span> 编辑</a>&#x3000;
+                    <a questionId="<%= question._id %>" class="deleteQuestion" href="javascript:;"><span class="fa fa-remove"></span> 删除</a>
                     <a class="pull-right" href=""><span class="fa fa-share-square-o"></span> 分享</a>
+                    <% } %>
                 </div>
 
                 <!--回复区域-->
                 <% include public/reply-list %>
-
+                <% if(user) { %>
                 <!--回复表单区域-->
                 <div class="leaveMessage">
                     <form id="reply_form" target="/<%= question._id %>/reply" ng-submit="postForm()">
@@ -39,6 +49,7 @@
                         <div class="leave-foot"><input id="reply-button" type="submit" class="pull-right" value="提交回答"></div>
                     </form>
                 </div>
+                <% } %>
             </div>
         </div>
         <!--右部分-->
@@ -48,8 +59,8 @@
                 <h4>发起人</h4>
                 <div>
                     <img class="pull-left" src="<%= question.author.avatar %>" alt="">
-                    <a href="#"><%= question.author.name %></a></span>
-                    <a href="#" class="more pull-right">关注</a>
+                    <a href="/user/<%= question.author.name %>"><%= question.author.name %></a></span>
+                    <a href="/user/<%= question.author.name %>" class="more pull-right">关注</a>
                 </div>
                 <p><%= question.author.motto %></p>
             </div>
@@ -69,4 +80,3 @@
         </div>
     </div>
 </main>
-

@@ -6,13 +6,13 @@
         <div class="col-lg-9 main-left">
             <!--标题栏-->
             <div class="title">
-                <a href="#" class="pull-left discover">
+                <a href="javascript:;" class="pull-left discover">
                     <span class="fa fa-bell-o"></span>
                     消息
                 </a>
                 <ul class="pull-right tab">
-                    <li class="hover"><a href="#">未读消息</a></li>
-                    <li><a href="#">已读消息</a></li>
+                    <li class="hover"><a href="javascript:;">未读消息</a></li>
+                    <li><a href="javascript:;">已读消息</a></li>
                 </ul>
             </div>
             <!--消息列表-->
@@ -20,12 +20,14 @@
                 <!--未读消息列表-->
                 <ul class="read">
                     <% if(no_read && no_read.length > 0) { %>
-                        <h3><a href="#" ng-click="allRead()">全部已读</a></h3>
+                        <h3><a href="javascript:;" ng-click="allRead()">全部已读</a></h3>
                         <% no_read.forEach(function(message, index) { %>
                             <% if(message.type == 'at') { %>
                                 <% include public/unat %>
                             <% } else if(message.type == 'reply') { %>
                                 <% include public/unreply %>
+                            <% } else if(message.type == 'comment') { %>
+                                <% include public/uncomment %>
                             <% } %>
                         <% }) %>
                     <% } else { %>
@@ -36,12 +38,14 @@
                 <!--已读消息列表-->
                 <ul class="unread hide">
                     <% if(read && read.length > 0) { %>
-                        <h3><a href="#">已读消息</a></h3>
+                        <h3><a href="javascript:;">已读消息</a></h3>
                         <% read.forEach(function(message, index) { %>
                             <% if(message.type == 'at') { %>
                                 <% include public/at %>
                             <% } else if(message.type == 'reply') { %>
                                 <% include public/reply %>
+                            <% } else if(message.type == 'comment') { %>
+                                <% include public/comment %>
                             <% } %>
                         <% }) %>
                     <% } else { %>

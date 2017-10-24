@@ -76,6 +76,14 @@ MessageSchema.statics = {
     //更新某个用户所有未读消息
     updateAllMessage: (user_id, callback) => {
         Message.update({'target_id': user_id}, {$set: {'has_read': true}}, {multi: true}).exec(callback);
+    },
+    geAllMessagesByUserId: (userId, limit, callback) => {
+        if(typeof limit == 'function') {
+            callback = limit;
+            limit = null;
+        }
+        Message.find({'target_id': userId, 'type': 'reply'}).sort({'create_time': 1}).limit(limit).populate('comment_id').populate('reply_id')
+            .populate('question_id').populate('author_id').exec(callback);
     }
 }
 

@@ -108,8 +108,8 @@ main .container {
     color: #666;
     margin-left: 5px;
 }
-.CodeMirror, .CodeMirror-scroll {
-    height: 200px !important;
+.leaveMessage .CodeMirror, .leaveMessage .CodeMirror-scroll {
+    height: auto !important;
     min-height: 200px !important;
 }
 .leave-foot input {
@@ -208,7 +208,7 @@ main .container {
     border-radius: 2px;
 }
 .comment-author {
-    font-size: 12px;
+    font-size: 14px;
     color: #666;
 }
 .comment-list-content p {
@@ -288,13 +288,24 @@ input[disabled] {
 }
 
 .markdown-text li {
-    border: none;
+    border: none !important;
 }
 .markdown-text ol li {
     list-style: decimal;
+    margin: 0;
+}
+.markdown-text ol {
+    padding-left: 20px;
+}
+.markdown-text ul {
+    margin-left: 20px;
 }
 .markdown-text ul li {
     list-style: disc;
+    margin: 0;
+}
+.markdown-text img {
+    width: 100%;
 }
 
 #showReply {
@@ -310,6 +321,15 @@ input[disabled] {
     color: #666;
     background: #f3f3f3;
     transition: .2s;
+}
+.tipLogin {
+    background: #f9f9f9;
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 40px 20px 80px;
+    cursor: pointer;
+    color: #999;
 }
 .comment-body-list form {
     margin-top: 20px;
@@ -347,4 +367,29 @@ input[disabled] {
 }
 .reply-somebody-cancel:hover {
     background: #4DAAFF !important;
+}
+.comment-list-content p {
+    word-wrap: break-word;
+}
+.small-comment-body .CodeMirror, .small-comment-body .CodeMirror-scroll {
+    min-height: 20px !important;
+    height: auto !important;
+    border-radius: 4px;
+    /*padding: 5px;*/
+}
+.small-comment-body .CodeMirror {
+    width: 88%;
+    float: left;
+     /*min-height: 20px !important;*/
+    margin-bottom: 10px;
+    padding: 5px;
+ }
+.small-comment-body .CodeMirror-lines {
+    padding: 0 !important;
+}
+.btn:active, .btn.active {
+    cursor: default;
+    background: #499ef3;
+    border: 1px solid #499ef3;
+    color: #fff;
 }

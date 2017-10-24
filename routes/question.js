@@ -5,12 +5,14 @@
 const mapping = require('../static');
 const setting = require('../setting');
 const validator = require('validator');
+const _ = require('lodash');
 //引入问题表
 const Question = require('../model/Question');
 //引入用户表
 const User = require('../model/User');
 //引入reply表
 const Reply = require('../model/Reply');
+const Comment = require('../model/Comment');
 //引入at模块
 const at = require('../common/at');
 //新建问题的处理函数
@@ -65,19 +67,74 @@ exports.postCreate = (req, res, next) => {
 }
 //编辑问题的处理函数
 exports.edit = (req, res, next) => {
-    res.render('edit', {
-        title: '编辑',
-        layout: 'indexTemplate',
-        resource: mapping.edit
+    let question_id = req.params.id;
+    Question.getQuestionById(question_id, (err, question) => {
+        res.render('edit', {
+            title: '编辑',
+            layout: 'indexTemplate',
+            resource: mapping.edit,
+            categorys: setting.categorys,
+            question: question
+         })
     })
 }
 //编辑行为的处理函数
 exports.postEdit = (req, res, next) => {
-
+    let question_id = req.params.id;
+    let title = validator.trim(req.body.title);
+    let category = validator.trim(req.body.category);
+    let content = validator.trim(req.body.content);
+    let error;
+    if(!validator.isLength(title, {min: 8, max: 30})) {
+        error = '标题长度不合法, 请重新输入';
+    }
+    if(!validator.isLength(content, {min: 10})) {
+        error = '问题长度不合法, 请重新输入';
+    }
+    if(error) {
+        return res.end(error);
+    }
+    else {
+        //验证成功后
+        Question.getQuestionById(question_id, (err, question) => {
+            if(err) {
+                return res.end(err);
+            }
+            question.category = category;
+            question.title = title;
+            question.content = content;
+            question.update_time = new Date();
+            question.save();
+        })
+        //发送at消息
+        at.sendMessageToMentionUsers(content, question_id, req.session.user._id, (err, msg) => {
+            //console.log(msg);
+        });
+        res.json({url: `/question/${question_id}`});
+    }
 }
 //删除行为的处理函数
 exports.delete = (req, res, next) => {
-
+    let question_id = req.params.id;
+    let user = req.session.user._id;
+    Question.getQuestionById(question_id, (err, question) => {
+        if(err) {
+            return res.end(err);
+        }
+        if(question.author._id == user) {
+            //更改Question表deleted字段
+            question.deleted = true;
+            question.save();
+            //更改User表的回复数和发布文章数
+            question.author.reply_count -= question.comment_num;
+            question.author.article_count -= 1;
+            question.author.save();
+            return res.end('success');
+        }
+        else {
+            return res.end('err');
+        }
+    })
 }
 //查询问题的处理函数
 exports.index = (req, res, next) => {
@@ -115,14 +172,37 @@ exports.index = (req, res, next) => {
                 })
             }
             Question.getOtherQuestions(question.author._id, question._id, (err, questions) => {
-                return res.render('question', {
-                    title: '问题详情',
-                    layout: 'indexTemplate',
-                    resource: mapping.question,
-                    question: question,
-                    others: questions,
-                    replies: replies
-                })
+                let msg = null;
+                if(currentUser) {
+                    User.getUserById(currentUser._id, (err, user) => {
+                        if (_.includes(user.followQuestion, question_id) == true) {
+                            msg = 'follow';
+                        }
+                        else {
+                            msg = 'unfollow';
+                        }
+                        return res.render('question', {
+                            title: '问题详情',
+                            layout: 'indexTemplate',
+                            resource: mapping.question,
+                            question: question,
+                            others: questions,
+                            replies: replies,
+                            msg: msg
+                        })
+                    })
+                }
+                else {
+                    return res.render('question', {
+                        title: '问题详情',
+                        layout: 'indexTemplate',
+                        resource: mapping.question,
+                        question: question,
+                        others: questions,
+                        replies: replies,
+                        msg: msg
+                    })
+                }
             })
         })
     })

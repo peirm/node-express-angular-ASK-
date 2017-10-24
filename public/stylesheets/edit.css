@@ -68,7 +68,7 @@ main .container {
 }
 .submit input {
     border: none!important;
-    background-color: #7DD07C;
+    background-color: #38B836;
     color: #fff;
     height: 38px;
     padding: 0 10px;
@@ -76,7 +76,6 @@ main .container {
     font-size: 14px;
     min-width: 120px;
     border-radius: 4px;
-    cursor: no-drop;
     outline: none;
 }
 .more {
@@ -118,4 +117,8 @@ main .container {
 .hot div p {
     font-size: 12px;
     color: #999;
+}
+input[disabled]{
+    cursor: no-drop !important;
+    background: #7DD07C !important;
 }

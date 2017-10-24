@@ -1,0 +1,26 @@
+<li class="comment-body-list clearfix">
+    <div class="twoReply-content clearfix">
+        <a class="head-img pull-left" href="/user/<%= comment.author.name %>"><img src="<%= comment.author.avatar %>" alt=""></a>
+        <div class="col-lg-11 comment-list-content clearfix">
+            <% if(comment.comment_target_id) { %>
+            <a class="comment-author" href="/user/<%= comment.author.name %>"><%= comment.author.name %></a>&nbsp;回复
+            <a class="comment-author" href="/user/<%= comment.comment_target_id.name %>"><%= comment.comment_target_id.name %></a>
+            <% } else { %>
+            <a class="comment-author" href="/user/<%= comment.author.name %>"><%= comment.author.name %></a>
+            <% } %>
+            <p><%- markdown(comment.content) %></p>
+            <div class="meta">
+                <a href="#">
+                    <span class="fa fa-thumbs-up"></span>
+                    0
+                </a>
+                &nbsp;
+                <a href="#">
+                    <span class="fa fa-thumbs-down"></span>
+                    0
+                </a>
+                <span class="pull-right"><%= comment.create_time_ago() %></span>
+            </div>
+        </div>
+    </div>
+</li>

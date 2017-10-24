@@ -7,8 +7,12 @@ const formidable = require('formidable');
 const moment = require('moment');
 const fs = require('fs');
 const gm = require('gm');
+const _ = require('lodash');
 //引入User
 const User = require('../model/User');
+const Question = require('../model/Question');
+const Reply = require('../model/Reply');
+const Message = require('../model/Message');
 const validator = require('validator');
 //个人设置的处理函数
 exports.setting = (req, res, next) => {
@@ -30,10 +34,6 @@ exports.updateImage = (req, res, next) => {
     form.on('field',function(field,value){
         fields.push([field,value]);
     }).on('file',function(field,file){
-        //文件的name值
-        //console.log(field);
-        //文件的具体信息
-        //console.log(file);
         files.push([field,file]);
         let type = file.name.split('.')[1];
         let date = new Date();
@@ -46,7 +46,6 @@ exports.updateImage = (req, res, next) => {
                 if(err){
                     console.log(err);
                 }else{
-                    console.log('done');
                     //压缩后再返回，否则的话，压缩会放在后边，导致链接失效
                     return res.json({
                         error:'',
@@ -61,7 +60,6 @@ exports.updateImage = (req, res, next) => {
 }
 //更新个人资料的处理函数
 exports.updateUser = (req, res, next) => {
-    // console.log(user)
     let id = req.params.id;
     let motto = req.body.motto;
     let avatar = req.body.avatar;
@@ -99,33 +97,132 @@ exports.updateUser = (req, res, next) => {
 }
 //用户排名
 exports.all = (req, res, next) => {
-    res.render('users', {
-        title: '用户列表',
-        layout: 'indexTemplate',
-        resource: mapping.users
+    let condition = null;
+    User.getAllUser(condition, condition, (err, userNum) => {
+        User.getAllUser(condition, 5, (err, users) => {
+            let msg = [];
+            if(req.session.user) {
+                users.forEach(function (user, index) {
+                    if (_.includes(user.beFollowed, req.session.user._id) == true) {
+                        msg.push('follow');
+                    }
+                    else {
+                        msg.push('unfollow');
+                    }
+                })
+            }
+            res.render('users', {
+                title: '用户列表',
+                layout: 'indexTemplate',
+                resource: mapping.users,
+                users: users,
+                userNum: userNum,
+                msg: msg
+            })
+        })
+    });
+}
+//用户排名页面分页
+exports.page = (req, res, next) => {
+    let page = req.params.page;
+    User.find().limit(5).skip((page - 1) * 5).then(users => {
+        console.log(users);
+        res.render('users-page', {
+            users: users,
+            pageNum: page
+        });
     })
 }
 //个人信息
 exports.index = (req, res, next) => {
-    res.render('myCenter', {
-        title: '个人中心',
-        layout: 'indexTemplate',
-        resource: mapping.myCenter
+    let userName = req.params.name;
+    User.getUserByName(userName, (err, person) => {
+        if(err) {
+            return res.end(err);
+        }
+        Question.getQuestionsByAuthor(person._id, (err, questions) => {
+            if(err) {
+                return res.end(err);
+            }
+            Message.geAllMessagesByUserId(person._id, (err, message) => {
+                let msg = null;
+                if(_.includes(person.beFollowed, req.session.user._id) == true) {
+                    msg = 'follow';
+                }
+                else {
+                    msg = 'unfollow';
+                }
+                User.getUserByNamePopulater(userName, (err, personPopulater) => {
+                    Question.find({}).populate('author').then(results => {
+                        let followQuestion = [];
+                        let dynamic = [];
+                        results.forEach(function (result, index) {
+                            if(_.includes(result.beFollowed, person._id) == true) {
+                                followQuestion.push(result);
+                            }
+                            if(_.includes(person.follow, result.author._id)) {
+                                dynamic.push(result);
+                            }
+                        })
+                        dynamic = _.sortBy(dynamic, [function (o) {
+                            return -o.update_time;
+                        }]);
+                        res.render('myCenter', {
+                            title: '个人中心',
+                            layout: 'indexTemplate',
+                            resource: mapping.myCenter,
+                            person: person,
+                            personPopulater: personPopulater,
+                            questions: questions,
+                            message: message,
+                            msg: msg,
+                            followQuestion: followQuestion,
+                            dynamic: dynamic
+                        })
+                    })
+                })
+            })
+
+        })
     })
 }
 //发布问题列表
 exports.questions = (req, res, next) => {
-    res.render('questions', {
-        title: '发问',
-        layout: 'indexTemplate',
-        resource: mapping.questions
+    let userName = req.params.name;
+    User.getUserByName(userName, (err, person) => {
+        if(err) {
+            return res.end(err);
+        }
+        Question.getQuestionsByAuthor(person._id, (err, questions) => {
+            if(err) {
+                return res.end(err);
+            }
+            res.render('questions', {
+                title: '发问',
+                layout: 'indexTemplate',
+                resource: mapping.questions,
+                person: person,
+                questions: questions
+            })
+        })
     })
 }
 //回复问题列表
 exports.replys = (req, res, next) => {
-    res.render('replys', {
-        title: '回复',
-        layout: 'indexTemplate',
-        resource: mapping.replys
+    let userName = req.params.name;
+    User.getUserByName(userName, (err, person) => {
+        if(err) {
+            return res.end(err);
+        }
+        Message.geAllMessagesByUserId(person._id, (err, messages) => {
+            res.render('replys', {
+                title: '回复',
+                layout: 'indexTemplate',
+                resource: mapping.replys,
+                person: person,
+                messages: messages
+            })
+        })
     })
+
 }

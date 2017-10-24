@@ -97,9 +97,19 @@ main .container {
 }
 .my-bottom .metas {
     margin: 15px 0;
+    display: inline-block;
 }
 .my-bottom .metas span {
     color: #666;
+}
+.my-bottom .markdown-text {
+    display: inline-block;
+    width: 90%;
+}
+.my-bottom .markdown-text a {
+    display: inline-block;
+    word-wrap: break-word;
+    width: 100%;
 }
 
 .more {
@@ -138,4 +148,6 @@ main .container {
     font-size: 12px;
     color: #999;
 }
-
+.markdown-text img {
+    width: 100%;
+}

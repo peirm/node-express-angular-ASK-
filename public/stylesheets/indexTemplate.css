@@ -12,6 +12,9 @@ ul, li {
     margin: 0;
     padding: 0;
 }
+input[type=submit] {
+    outline: none;
+}
 .hide {
     display: none;
 }
@@ -179,4 +182,27 @@ footer {
     text-align: center;
     color: #888;
     margin: 30px 0;
+}
+p, span, div, a {
+    word-wrap:break-word !important;
+}
+.markdown-text li {
+    border: none !important;
+}
+.markdown-text ol li {
+    list-style: decimal;
+    margin: 0;
+}
+.markdown-text ol {
+    padding-left: 20px;
+}
+.markdown-text ul {
+    margin-left: 20px;
+}
+.markdown-text ul li {
+    list-style: disc;
+    margin: 0;
+}
+.markdown-text img {
+    width: 100%;
 }

@@ -18,6 +18,7 @@ const DBSet = {
     addOne: (obj, req, res, logMsg) => {
         let newObj = new obj(req.body);
         newObj.save().then(result => {
+            console.log(result);
             res.end(logMsg);
         }).catch(err => {
             res.end(err);

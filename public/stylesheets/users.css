@@ -71,6 +71,7 @@ main .container {
 .list-text .meta a {
     color: #666;
     font-size: 13px;
+    margin-right: 15px;
 }
 .body .list-text p {
     font-size: 13px;
@@ -117,4 +118,18 @@ main .container {
     border-color: #499EF3;
     border-right-color: #ddd;
 }
-
+ul li {
+    position: relative;
+}
+ul li .ranking {
+    position: absolute;
+    left: 7px;
+    top: 18px;
+    color: #fff;
+}
+.btn:active, .btn.active {
+    cursor: default;
+    background: #499ef3;
+    border: 1px solid #499ef3;
+    color: #fff;
+}

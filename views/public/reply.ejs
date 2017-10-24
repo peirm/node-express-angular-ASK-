@@ -1,11 +1,9 @@
+
 <li class="read-list hide" i="<%= index + 1 %>">
     <p>
         <a href="/user/<%= message.author_id.name %>"><%= message.author_id.name %></a>
         在
-        <a href="/question/<%= message.question_id._id %>#<%= message.reply_id._id %>"><%= message.question_id.title %></a>
-        回复了: <br>
-        &#x3000;<span style="font-size: 12px;color: #aaa;">
-            <%= message.reply_id.content %>
-        </span>
+        <a href="/question/<%= message.question_id._id %>"><%= message.question_id.title %></a>
+        回复了你
     </p>
 </li>

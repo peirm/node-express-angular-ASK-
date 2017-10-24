@@ -22,6 +22,10 @@ const auth = require('./common/auth');
 //**************************首页**************************//
 //首页的路由
 router.get('/', home.index);
+//首页
+router.get('/index/:page', home.page);
+//首页路由的分类
+router.get('/index/questions/:category', home.category);
 //注册页面的路由
 router.get('/register', auth.userNotRequired, home.register);
 //登录页面的路由
@@ -47,7 +51,7 @@ router.get('/question/:id/delete', auth.userRequired, question.delete);
 //问题页面
 router.get('/question/:id', question.index);
 //显示所有一级回复
-router.get('/question/:id/showReply', auth.userRequired, question.show);
+router.get('/question/:id/showReply', question.show);
 
 //***************************用户*************************
 //个人设置页面
@@ -58,12 +62,19 @@ router.post('/updateImage', auth.userRequired, user.updateImage);
 router.post('/updateUser/:id', auth.userRequired, user.updateUser);
 //用户列表页面
 router.get('/users', user.all);
+//用户列表页面分页
+router.get('/users/:page', user.page);
 //个人中心页面
-router.get('/user/:name', auth.userRequired, user.index);
+router.get('/user/:name', user.index);
+/*//个人中心关注页面
+router.get('/user/:name/follow', user.follow);
+//个人中心被关注页面
+router.get('/user/:name/unfollow', user.unfollow);*/
+//个人中心关注人的动态
 //用户发问列表
-router.get('/user/:name/questions', auth.userRequired, user.questions);
+router.get('/user/:name/questions', user.questions);
 //用户回复列表
-router.get('/user/:name/replys', auth.userRequired, user.replys);
+router.get('/user/:name/replys', user.replys);
 
 //****************************消息************************
 //消息列表页面
@@ -76,6 +87,17 @@ router.get('/updateAllMessage', auth.userRequired, message.updateAllMessage);
 //****************************回复************************
 router.post('/:question_id/reply', auth.userRequired, reply.add);//一级回复
 router.post('/:question_id/comment', auth.userRequired, comment.add);//二级回复
+router.get('/:reply_id/showComments', comment.show);//显示二级回复
+router.get('/comments/:reply_id/:page', comment.page);//二级回复分页
+
+//一级回复点赞
+router.get('/reply/like/:replyId', reply.replyLike);
+//一级回复踩
+router.get('/reply/unlike/:replyId', reply.replyUnLike);
+//关注用户
+router.get('/follow/user/:id', reply.followUser);
+//关注问题
+router.get('/follow/question/:id', reply.followQuestion);
 
 
 

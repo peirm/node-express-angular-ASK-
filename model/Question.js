@@ -79,6 +79,10 @@ const QuestionSchema = new Schema({
     deleted: {
         type: Boolean,
         default: false
+    },
+    beFollowed: {
+        type: [String],
+        ref: 'User'
     }
 })
 //创建一个虚拟的字段
@@ -109,6 +113,13 @@ QuestionSchema.statics = {
     //通过ID来查询一个问题
     getQuestionById: (id, callback) => {
         Question.findOne({'_id': id}).populate('author').exec(callback);
+    },
+    getQuestionsByAuthor: (author, limit, callback) => {
+        if(typeof limit == 'function') {
+            callback = limit;
+            limit = null;
+        }
+        Question.find({'author': author}).sort({'create_time': -1}).limit(limit).exec(callback);
     }
 }
 

@@ -8,12 +8,12 @@
             <ul class="my-top">
                 <!--头像 用户名 个性签名-->
                 <li class="top-head clearfix">
-                    <img class="pull-left my-picture" src="/images/default-avatar.jpg" alt="">
+                    <img class="pull-left my-picture" src="<%= person.avatar %>" alt="">
                     <div class="list-text pull-left">
                         <h4>
-                            <span>suweiqing</span>
+                            <span><%= person.name %></span>
                         </h4>
-                        <p>这家伙很懒，什么都没有留下...</p>
+                        <p><%= person.motto %></p>
                         <span class="users-follow-btn"><a href="#">关注&nbsp;&nbsp;|&nbsp;&nbsp;<span class="follow-num">22</span></a></span>
                     </div>
                 </li>
@@ -22,10 +22,10 @@
                     <div class="meta">
                         <a href="#">
                             <span class="fa fa-bar-chart-o"></span>
-                            积分<b>: 45 </b>
+                            积分<b>: <%= person.score %> </b>
                         </a>&nbsp;
                         <a href="#">
-                            注册时间<b>: 1 天前</b>
+                            注册时间<b>: <%= person.create_time_ago() %></b>
                         </a>
 
                     </div>
@@ -34,21 +34,7 @@
             <!--发布问题列表-->
             <div class="my-bottom">
                 <ul class="problems">
-                    <h1>发问 </h1>
-                    <li>
-                        <p><a href="#">这是我的第一条发问</a></p>
-                        <p class="metas">
-                            <a class="comments" href="#"><span class="fa fa-comment-o"></span> &nbsp;1</a>
-                            <span><span>11</span> 次浏览 • <span>0</span> 个关注 • <span>1</span> 天前</span>
-                        </p>
-                    </li>
-                    <li>
-                        <p><a href="#">这是我的第二条发问</a></p>
-                        <p class="metas">
-                            <a class="comments" href="#"><span class="fa fa-comment-o"></span> &nbsp;1</a>
-                            <span><span>11</span> 次浏览 • <span>0</span> 个关注 • <span>1</span> 天前</span>
-                        </p>
-                    </li>
+                    <% include public/questions-list %>
                 </ul>
             </div>
         </div>

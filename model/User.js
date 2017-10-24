@@ -63,12 +63,33 @@ const UserSchema = new Schema({
     reply_count:{
         type: Number,
         default: 0
+    },
+    //用户关注的人
+    follow: {
+        type: [String],
+        ref: 'User'
+    },
+    //关注用户的人
+    beFollowed: {
+        type: [String],
+        ref: 'User'
+    },
+    //用户关注的文章
+    followQuestion: {
+        type: [String],
+        ref: 'Question'
     }
 })
 //给这个User表添加静态方法
 UserSchema.statics = {
+    getUser: (condition, callback) => {
+        User.find({'_id': {$nin: [condition]}}).sort({'score': -1}).limit(5).exec(callback);
+    },
+    getAllUser: (condition, num, callback) => {
+        User.find().limit(num).sort({'score': -1}).exec(callback);
+    },
     getUserByName:(name,callback)=>{
-        User.findOne({name:name},callback)
+        User.findOne({name:name}).exec(callback);
     },
     getUserByEmail:(email,callback)=>{
         User.findOne({email:email},callback)
@@ -81,6 +102,9 @@ UserSchema.statics = {
             return callback(null, []);
         }
         User.find({name: {$in: names}}, callback);
+    },
+    getUserByNamePopulater: (name, callback) => {
+        User.findOne({name:name}).populate('follow').populate('beFollowed').exec(callback);
     }
 }
 //当前的模型就会有BaseModel里面的方法了

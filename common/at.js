@@ -56,6 +56,7 @@ const at = {
             users = users.filter(function (user) {
                 return user._id != authorId;
             })
+            // console.log(users);
             //循环所有的目标用户, 将消息存入消息表中
             //如果users为空, 证明:你要@的人不存在, 所以, 没有必要在创建对应的消息
             if(users.length != 0) {

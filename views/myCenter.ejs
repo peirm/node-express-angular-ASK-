@@ -7,13 +7,22 @@
             <ul class="my-top">
                 <!--头像 用户名 个性签名-->
                 <li class="top-head clearfix">
-                    <img class="pull-left my-picture" src="/images/default-avatar.jpg" alt="">
+                    <img class="pull-left my-picture" src="<%= person.avatar %>" alt="">
                     <div class="list-text pull-left">
                         <h4>
-                            <span>suweiqing</span>
+                            <span><%= person.name %></span>
                         </h4>
-                        <p>这家伙很懒，什么都没有留下...</p>
-                        <span class="users-follow-btn"><a href="#">关注&nbsp;&nbsp;|&nbsp;&nbsp;<span class="follow-num">22</span></a></span>
+                        <p><%= person.motto %></p>
+                        <span id="<%= person._id %>" class="users-follow-btn">
+                            <a href="#">
+                                <% if(msg == 'follow') { %>
+                                <span class="text">取消关注</span>
+                                <% } else { %>
+                                <span class="text">关注</span>
+                                <% } %>
+                                &nbsp;&nbsp;|&nbsp;&nbsp;
+                                <span class="follow-num"><%= person.beFollowed.length %></span></a>
+                        </span>
                     </div>
                 </li>
                 <!--积分 注册时间-->
@@ -21,10 +30,10 @@
                     <div class="meta">
                         <a href="#">
                             <span class="fa fa-bar-chart-o"></span>
-                            积分<b>: 45 </b>
+                            积分<b>: <%= person.score %> </b>
                         </a>&nbsp;
                         <a href="#">
-                            注册时间<b>: 1 天前</b>
+                            注册时间<b>: <%= person.create_time_ago() %></b>
                         </a>
 
                     </div>
@@ -32,9 +41,9 @@
                 <!--tab列表-->
                 <li class="top-foot">
                     <ul class="my-tab clearfix">
-                        <li class="hover">发问<span class="badge">2</span></li>
-                        <li>回复<span class="badge">5</span></li>
-                        <li>关注</li>
+                        <li class="hover">发问<span class="badge"><%= questions.length %></span></li>
+                        <li name="<%= person.name%>" id="<%= person._id %>" class="reply-list">回复<span class="badge"><%= message.length%></span></li>
+                        <li id="<%= person._id %>" class="tab-follow">关注<span class="badge"><%= followQuestion.length%></span></li>
                         <li>动态</li>
                     </ul>
                 </li>
@@ -42,79 +51,60 @@
             <div class="my-bottom">
                 <!--发问列表-->
                 <ul class="problems">
-                    <h1>发问 <a class="pull-right" href="/user/:name/questions">更多</a></h1>
-                   <li>
-                       <p><a href="#">这是我的第一条发问</a></p>
-                       <p class="metas">
-                           <a class="comments" href="#"><span class="fa fa-comment-o"></span> &nbsp;1</a>
-                           <span><span>11</span> 次浏览 • <span>0</span> 个关注 • <span>1</span> 天前</span>
-                       </p>
-                   </li>
-                    <li>
-                        <p><a href="#">这是我的第二条发问</a></p>
-                        <p class="metas">
-                            <a class="comments" href="#"><span class="fa fa-comment-o"></span> &nbsp;1</a>
-                            <span><span>11</span> 次浏览 • <span>0</span> 个关注 • <span>1</span> 天前</span>
-                        </p>
-                    </li>
+                    <% include public/question-list %>
                 </ul>
                 <!--回复列表-->
                 <ul class="replys hide">
-                    <h1>回复 <a class="pull-right" href="/user/:name/replys">更多</a></h1>
-                    <li>
-                        <p><a href="#">这是我的第一条发问</a></p>
-                        <p class="metas">
-                            <a class="comments" href="#"><span class="fa fa-comment-o"></span> &nbsp;1</a>
-                            <span>这是第一条发问下面的回复内容</span>
-                        </p>
-                    </li>
-                    <li>
-                        <p><a href="#">这是我的第二条发问</a></p>
-                        <p class="metas">
-                            <a class="comments" href="#"><span class="fa fa-comment-o"></span> &nbsp;1</a>
-                            <span>这是第二条发问下面的回复内容</span>
-                        </p>
-                    </li>
-                    <li>
-                        <p><a href="#">这是我的第三条发问</a></p>
-                        <p class="metas">
-                            <a class="comments" href="#"><span class="fa fa-comment-o"></span> &nbsp;1</a>
-                            <span>这是第三条发问下面的回复内容</span>
-                        </p>
-                    </li>
-                    <li>
-                        <p><a href="#">这是我的第四条发问</a></p>
-                        <p class="metas">
-                            <a class="comments" href="#"><span class="fa fa-comment-o"></span> &nbsp;1</a>
-                            <span>这是第四条发问下面的回复内容</span>
-                        </p>
-                    </li>
-                    <li>
-                        <p><a href="#">这是我的第五条发问</a></p>
-                        <p class="metas">
-                            <a class="comments" href="#"><span class="fa fa-comment-o"></span> &nbsp;1</a>
-                            <span>这是第五条发问下面的回复内容</span>
-                        </p>
-                    </li>
+                    <h1>回复 <a class="pull-right" href="/user/<%= person.name %>/replys">更多</a></h1>
+                    <% include public/myCenter-reply %>
                 </ul>
                 <!--关注列表-->
-                <ul class="attention"></ul>
+                <ul class="attention hide">
+                    <h1>我关注的文章</h1>
+                    <% followQuestion.forEach(function(question, index) { %>
+                    <li style="margin: 10px 0; padding: 10px 0;">
+                        <a href="/question/<%= question._id %>"><%= question.title %></a>
+                        <p style="color: #666;" class="pull-right">作者: <a href="/user/<%= question.author.name %>"><%= question.author.name %></a></p>
+                    </li>
+                    <% }) %>
+                </ul>
                 <!--动态列表-->
-                <ul class="dynamic"></ul>
+                <ul class="dynamic hide">
+                    <h1>关注的人动态</h1>
+                    <% dynamic.forEach(function(question, index) { %>
+                    <% if(index < 10) { %>
+                    <li style="margin: 10px 0; padding: 10px 0;">
+                        <a href="/user/<%= question.author.name %>"><%= question.author.name %></a></p>在
+                        <time><%= question.create_time_ago() %></time>
+                        发布了
+                        <span><a href="/question/<%= question._id %>"><%= question.title %></a></span>
+                    </li>
+                    <% } %>
+                    <% }) %>
+                </ul>
             </div>
         </div>
         <!--内容右部分-->
         <div class="col-lg-3 main-right">
             <!--关注板块-->
             <div class="hot">
-                <h4>关注<span>2</span>人<a href="#" class="more pull-right">更多</a></h4>
+                <h4>关注<span><%= personPopulater.follow.length %></span>人<a href="#" class="more pull-right">更多</a></h4>
+                <% personPopulater.follow.forEach(function(person, index) { %>
                 <div class="clearfix">
-                    <img class="pull-left" src="/images/avatar-mid-img.png" alt="">
+                    <img class="pull-left" src="<%= person.avatar %>" alt="">
+                    <span><a href="/user/<%= person.name %>"><%= person.name %></a></span>
                 </div>
+                <% }) %>
             </div>
             <!--被关注板块-->
             <div class="hot">
-                <h4>被<span>2</span>人关注<a href="" class="more pull-right">更多</a></h4>
+                <h4>被<span><%= personPopulater.beFollowed.length %></span>人关注<a href="" class="more pull-right">更多</a></h4>
+                <% personPopulater.beFollowed.forEach(function(person, index) { %>
+                <div class="clearfix">
+                    <img class="pull-left" src="<%= person.avatar %>" alt="">
+                    <span><a href="/user/<%= person.name %>"><%= person.name %></a></span>
+                </div>
+                <% }) %>
             </div>
         </div>
     </div>

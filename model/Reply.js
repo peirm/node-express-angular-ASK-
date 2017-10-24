@@ -43,6 +43,11 @@ const ReplySchema = new Schema({
         type: [String],
         ref: 'User'
     },
+    //踩该留言的人的数组
+    unlikes: {
+        type: [String],
+        ref: 'User'
+    },
     //二级回复的数量
     comment_num: {
         type: Number,
@@ -60,6 +65,10 @@ ReplySchema.statics = {
     //获取前五条回复
     getFiveRepliesByQuestionId: (question_id, callback) => {
         Reply.find({'question_id': question_id}).sort({'create_time': 1}).limit(5).populate('author').exec(callback);
+    },
+    //通过id获取一条回复
+    getReplyById: (reply_id, callback) => {
+        Reply.findOne({'_id': reply_id}).exec(callback);
     }
 }
 

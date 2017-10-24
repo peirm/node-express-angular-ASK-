@@ -7,6 +7,7 @@ const mapping = require('../static');
 const validator = require('validator');
 //引入User表
 const User = require('../model/User');
+const Question = require('../model/Question');
 //引入数据库操作文件db.js
 const DBSet = require('../model/db');
 //引入配置文件
@@ -17,13 +18,47 @@ const mail = require('../common/mail');
 const auth = require('../common/auth');
 //首页的处理函数
 exports.index = (req, res, next) => {
-    res.render('index', {
-        title: '首页',
-        //默认模板
-        layout: 'indexTemplate',
-        resource: mapping.index
-    });
+    Question.find({'deleted': false}).then(allQuestion => {
+        return allQuestion;
+    }).then(allQuestion => {
+        let condition
+        condition = null;
+        User.getUser(condition, (err, users) => {
+            Question.find({'deleted': false}).limit(5).populate('author').populate('last_reply')
+                .populate('last_reply_author').then(questions => {
+                res.render('index', {
+                    title: '首页',
+                    //默认模板
+                    layout: 'indexTemplate',
+                    resource: mapping.index,
+                    questions: questions,
+                    users: users,
+                    allQuestion: allQuestion
+                });
+            })
+        });
+    })
 };
+//首页的分页
+exports.page = (req, res, next) => {
+    let page = req.params.page;
+    Question.find({'deleted': false}).limit(5).skip((page - 1) * 5).populate('author').populate('last_reply')
+        .populate('last_reply_author').then(questions => {
+        res.render('index-page', {
+            questions: questions
+        });
+    })
+}
+//首页路由的分类
+exports.category = (req, res, next) => {
+    let category = req.params.category;
+    Question.find({'deleted': false, 'category': category}).limit(5).skip().populate('author').populate('last_reply')
+        .populate('last_reply_author').then(questions => {
+        res.render('index-category', {
+            questions: questions
+        });
+    })
+}
 //注册页面的处理函数
 exports.register = (req, res, next) => {
     res.render('register', {
