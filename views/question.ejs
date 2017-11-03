@@ -10,6 +10,7 @@
                 <!--标题-->
                 <div class="detail-title">
                     <h1><%= question.title %></h1>
+                    <% if(user) { %>
                     <span id="<%= question._id %>" questionAuthor="<%= question.author._id %>" class="detail-follow-btn">
                         <a href="javascript:;">
                             <% if(msg == 'follow') { %>
@@ -19,6 +20,7 @@
                             <% } %>
                         </a>
                     </span>
+                    <% } %>
                 </div>
                 <!--内容-->
                 <div class="detail-content"><%- markdown(question.content) %></div>
@@ -29,7 +31,29 @@
                     <% if(user) { %>
                     <a class="editQuestion" href="/question/<%= question._id %>/edit"><span class="fa fa-edit"></span> 编辑</a>&#x3000;
                     <a questionId="<%= question._id %>" class="deleteQuestion" href="javascript:;"><span class="fa fa-remove"></span> 删除</a>
-                    <a class="pull-right" href=""><span class="fa fa-share-square-o"></span> 分享</a>
+                    <a style="padding-left: 20px" class="pull-right share" href=""><span class="fa fa-share-square-o"></span> 分享</a>
+                    <div id="share" class="pull-right baiduShare hide" style="box-shadow: 0 0 5px rgba(0,0,0,.2); padding: 5px; border-radius: 3px;margin: -9px -2px 0 0;">
+                        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a></div>
+                        <script>
+                            window._bd_share_config={
+                                "common":{
+                                    "bdSnsKey":{},
+                                    "bdText":"<%= question.title %>",
+                                    "bdMini":"1",
+                                    "bdMiniList":[
+                                        "qzone","tsina","renren","tqq","tieba","bdhome","thx","meilishuo","diandian","duitang","hx","fx","youdao","sdo","qingbiji","people","xinhua","mail","isohu","yaolan","wealink","ty","iguba","fbook","twi","linkedin","h163","evernotecn","copy","print"
+                                    ],
+                                    "bdPic":"",
+                                    "bdStyle":"2",
+                                    "bdSize":"16"
+                                },
+                                "share":{
+
+                                }
+                            };
+                            with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                        </script>
+                    </div>
                     <% } %>
                 </div>
 
@@ -80,3 +104,12 @@
         </div>
     </div>
 </main>
+<script>
+    $(function () {
+        $('.share').add('#share').mouseover(function () {
+            $('#share').removeClass('hide');
+        }).mouseout(function () {
+            $('#share').addClass('hide');
+        })
+    })
+</script>

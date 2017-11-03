@@ -9,6 +9,7 @@
         </div>
     </ul>
     <!--分页-->
+    <% if(reply.comment_num > 5) { %>
     <div class="clearfix">
         <div style="margin: 20px 5px" class="btn-group pull-right clearfix">
             <% for(let i = 1; i <= Math.ceil(reply.comment_num/5); i++) { %>
@@ -16,6 +17,7 @@
             <% } %>
         </div>
     </div>
+    <% } %>
     <% if(user) { %>
     <form class="clearfix" action="/<%= reply.question_id %>/comment">
         <input type="hidden" name="reply_id" value="<%= reply._id %>">

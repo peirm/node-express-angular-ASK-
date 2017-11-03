@@ -1,9 +1,9 @@
-
 .mod-body {
     width: 714px;
     margin: 80px auto;
     background: #fff;
     border: 1px solid #ccc;
+    background: rgba(255, 255, 255, 0.7) !important;
 }
 .main-top {
     padding: 60px 50px 10px;

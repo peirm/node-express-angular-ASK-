@@ -6,6 +6,7 @@ main .container {
     border: 1px solid #E6E6E6;
     border-radius: 3px;
     background: #fff;
+    background: rgba(255, 255, 255, 0.7) !important;
 }
 
 .main-left {
@@ -392,4 +393,16 @@ input[disabled] {
     background: #499ef3;
     border: 1px solid #499ef3;
     color: #fff;
+}
+.baiduShare {
+    position: relative;
+}
+.baiduShare:before {
+    display: inline-block;
+    content: '';
+    border: 10px solid transparent;
+    position: absolute;
+    right: -20px;
+    top: calc(50% - 10px);
+    border-left-color: #eee;
 }

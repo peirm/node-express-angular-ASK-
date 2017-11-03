@@ -1,24 +1,4 @@
-.button {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-.button a {
-    display: inline-block;
-    width: 80px;
-    height: 33px;
-    line-height: 33px;
-    color: #fff;
-    text-align: center;
-    margin: 8px 5px 0 5px;
-    border-radius: 5px;
-}
-.login {
-    background: #4DAAFF;
-}
-.register {
-    background: #38B836;
-}
+
 main {
     margin-top: 30px;
 }
@@ -26,6 +6,10 @@ main .container {
     border: 1px solid #E6E6E6;
     border-radius: 3px;
     background: #fff;
+    background: rgba(255, 255, 255, 0.7) !important;
+}
+.main {
+    background: rgba(255, 255, 255, 0.7) !important;
 }
 .main-left {
     padding: 0;

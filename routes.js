@@ -66,11 +66,10 @@ router.get('/users', user.all);
 router.get('/users/:page', user.page);
 //个人中心页面
 router.get('/user/:name', user.index);
-/*//个人中心关注页面
+//个人中心关注页面
 router.get('/user/:name/follow', user.follow);
 //个人中心被关注页面
-router.get('/user/:name/unfollow', user.unfollow);*/
-//个人中心关注人的动态
+router.get('/user/:name/beFollowed', user.beFollowed);
 //用户发问列表
 router.get('/user/:name/questions', user.questions);
 //用户回复列表
@@ -94,6 +93,10 @@ router.get('/comments/:reply_id/:page', comment.page);//二级回复分页
 router.get('/reply/like/:replyId', reply.replyLike);
 //一级回复踩
 router.get('/reply/unlike/:replyId', reply.replyUnLike);
+//二级回复点赞
+router.get('/comment/like/:commentId', comment.replyLike);
+//二级回复踩
+router.get('/comment/unlike/:commentId', comment.replyUnLike);
 //关注用户
 router.get('/follow/user/:id', reply.followUser);
 //关注问题

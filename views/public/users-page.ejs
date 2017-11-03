@@ -14,11 +14,11 @@
         <div class="meta">
             <a href="javascript:;">
                 <span class="fa fa-bar-chart-o"></span>
-                积分<b><%= user.score %></b>
+                积分 <b><%= user.score %></b>
             </a>
             <a href="javascript:;">
                 <span class="fa fa-file-text-o"></span>
-                发表数量 <b><%= user.article_count %></b>
+                发表 <b><%= user.article_count %></b>
             </a>
             <a href="javascript:;">
                 <span class="fa fa-heart-o"></span>
@@ -33,7 +33,7 @@
                 <% } else { %>
                 <span class="text">关注</span>
                 <% } %>
-                &nbsp;&nbsp;|&nbsp;&nbsp;<span class="follow-num"><%= user.beFollowed.length %></span></a>
+            </a>
         </span>
     </div>
 </li>

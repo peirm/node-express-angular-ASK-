@@ -6,6 +6,7 @@ main .container {
     border: 1px solid #E6E6E6;
     border-radius: 3px;
     background: #fff;
+    background: rgba(255, 255, 255, 0.7) !important;
 }
 .main-title {
     padding: 10px 20px;
@@ -114,6 +115,7 @@ textarea {
     box-sizing: border-box;
     border: 1px solid #c0c0c0;
     border-radius: 4px;
+    resize: none;
 }
 input[type=file] {
     width: 100px;

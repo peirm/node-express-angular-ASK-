@@ -1,13 +1,16 @@
 body {
-    background: #eee;
+    /*background: #e7eef4;*/ /* 别删(响应式的时候用得到) */
+    background: url("../images/timg.jpg") no-repeat fixed;
+    background-size: 100%;
+    padding-top: 50px;
 }
-a, a:hover {
+a,a:hover {
     text-decoration: none !important;
 }
 .container {
     padding: 0;
 }
-ul, li {
+ul,li {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -32,19 +35,22 @@ input[type=submit] {
     margin-left: 50px;
 }
 .navbar-inverse {
-    background: #563D7C;
-    border-color: #563D7C;
+    background: rgba(0, 0, 0, 0.7);
+    border-color: #000;
 }
 .navbar-left li a {
-    color: #fff !important;
+    color: #cecece !important;
 }
 .navbar .navbar-left li.active a {
-    background: #6E4E9E !important;
+    background: rgba(0, 0, 0, 0.2) !important;
     color: #fff !important;
 }
 .navbar-left li:hover {
-    background: #6E4E9E;
-    color: #fff;
+    /*background: rgba(0, 0, 0, 0.2);*/
+    /*color: #fff !important;*/
+}
+.navbar-left li:hover a {
+    color: #fff !important;
 }
 .tell {
     position: relative;
@@ -65,39 +71,49 @@ input[type=submit] {
 }
 .button a {
     display: inline-block;
-    width: 80px;
-    height: 33px;
-    line-height: 33px;
+    width: 70px;
+    height: 28px;
+    line-height: 28px;
     color: #fff;
     text-align: center;
-    margin: 8px 5px 0 5px;
+    margin: 10px 5px 0 5px;
     border-radius: 5px;
+    transition: .2s;
 }
 .login {
-    background: #59c0ff;
+    /*background: #59c0ff;*/
+    background: none !important;
+    border: 1px solid transparent;
 }
 .login:hover {
-    background: #4DAAFF;
+    /*background: #4DAAFF;*/
+    border: 1px solid #fff;
 }
 .register {
-    background: #5bbf5a;
+    /*background: #5bbf5a;*/
+    background: none !important;
+    border: 1px solid transparent;
 }
 .register:hover {
-    background: #38B836;
+    /*background: #38B836;*/
+    border: 1px solid #fff;
 }
 .publish {
     position: absolute;
     top: 0;
     right: 50px;
-    margin-top: 9px;
-    padding: 6px 10px;
-    background: rgb(89, 176, 255);
-    color: #fff;
+    margin-top: 10px;
+    padding: 4px 8px;
+    /*background: rgb(89, 176, 255);*/
+    color: #cecece;
     border-radius: 3px;
+    border: 1px solid transparent;
+    transition: .2s;
 }
 .publish:hover {
-    background: rgb(77, 170, 255);
+    /*background: rgb(77, 170, 255);*/
     color: #fff;
+    border: 1px solid #fff;
 }
 .my {
     position: absolute;
@@ -123,8 +139,7 @@ input[type=submit] {
     display: none;
     border: 1px solid #cfcfcf;
     border-top: none;
-    background: #fff;
-
+    background: rgba(0, 0, 0, 0.6);
     z-index: 999;
     border-radius: 0px 0px 5px 5px;
     box-shadow: 0 5px 5px rgba(0,0,0,.1);
@@ -136,13 +151,13 @@ input[type=submit] {
     padding-left: 10px;
 }
 .setting li:hover {
-    background: #f0f0f0;
+    background: rgba(0, 0, 0, 0.3);
 }
 .setting li:first-child {
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 .setting li a {
-    color: #666;
+    color: #eee;
     display: inline-block;
     width: 100%;
     height: 100%;
@@ -156,32 +171,65 @@ input[disabled]{
     background: none !important;
 }
 
+#search {
+    margin: 10px 50px 0;
+    border: none;
+    outline: none;
+    padding: 5px;
+}
+.search-content {
+    background: #fff;
+    left: 50px;
+    top: 40px;
+    border: 1px solid #ccc;
+    width: 180px;
+    z-index: 10;
+}
+.search-content li a {
+    padding: 0 5px;
+    display: inline-block;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
+}
+
 
 footer {
     margin-top: 50px;
+}
+footer ul li a {
+    color: #fff;
+}
+footer ul li a:hover {
+    color: #ccc;
 }
 .wrapper {
     border-top: 1px solid #E5E5E5;
     border-bottom: 1px solid #E5E5E5;
     padding: 30px 0;
+    background: url(../images/timgs.jpg) no-repeat fixed;
 }
 .wrapper p {
     margin: 5px 0;
-    color: #888;
+    color: #FFFFFF;
 }
 .footer-list {
-    color: #888;
+    color: #FFFFFF;
 }
 .footer-list ul li {
     padding: 5px 0;
+    width: 200px;
 }
 .footer-list ul li:first-child {
     padding-bottom: 15px;
 }
 .copy {
+    background: rgba(0,0,0,0.7);
     text-align: center;
-    color: #888;
-    margin: 30px 0;
+    color: #FFFFFF;
+    padding: 20px 0;
+    margin-bottom: 0;
 }
 p, span, div, a {
     word-wrap:break-word !important;
@@ -205,4 +253,21 @@ p, span, div, a {
 }
 .markdown-text img {
     width: 100%;
+}
+#Backtop img {
+    width: 35px;
+    height: 75px;
+}
+/* 搜索 */
+.header-search {
+    border-radius: 20px;
+    outline: none;
+    padding-left: 10px;
+    margin-left:10px;
+    margin-top: 13px;
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    background: rgba(231,238,244,1);
+}
+.fa-search {
+    margin-left: -22px;
 }

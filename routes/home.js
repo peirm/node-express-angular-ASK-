@@ -24,7 +24,7 @@ exports.index = (req, res, next) => {
         let condition
         condition = null;
         User.getUser(condition, (err, users) => {
-            Question.find({'deleted': false}).limit(5).populate('author').populate('last_reply')
+            Question.find({'deleted': false}).limit(10).populate('author').populate('last_reply')
                 .populate('last_reply_author').then(questions => {
                 res.render('index', {
                     title: '首页',
@@ -42,7 +42,7 @@ exports.index = (req, res, next) => {
 //首页的分页
 exports.page = (req, res, next) => {
     let page = req.params.page;
-    Question.find({'deleted': false}).limit(5).skip((page - 1) * 5).populate('author').populate('last_reply')
+    Question.find({'deleted': false}).limit(10).skip((page - 1) * 10).populate('author').populate('last_reply')
         .populate('last_reply_author').then(questions => {
         res.render('index-page', {
             questions: questions
@@ -52,7 +52,7 @@ exports.page = (req, res, next) => {
 //首页路由的分类
 exports.category = (req, res, next) => {
     let category = req.params.category;
-    Question.find({'deleted': false, 'category': category}).limit(5).skip().populate('author').populate('last_reply')
+    Question.find({'deleted': false, 'category': category}).populate('author').populate('last_reply')
         .populate('last_reply_author').then(questions => {
         res.render('index-category', {
             questions: questions

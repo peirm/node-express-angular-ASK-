@@ -1,5 +1,5 @@
 <% comments.forEach(function( comment, index) { %>
-<li class="comment-body-list clearfix">
+<li class="comment-body-list clearfix" id="<%= comment._id %>" commentId="<%= comment.author._id %>" userId="<%= user %>">
     <div class="twoReply-content clearfix">
         <a class="head-img pull-left" href="/user/<%= comment.author.name %>"><img src="<%= comment.author.avatar %>" alt=""></a>
         <div class="col-lg-11 comment-list-content clearfix">
@@ -11,14 +11,14 @@
             <% } %>
             <p><%- markdown(comment.content) %></p>
             <div class="meta">
-                <a href="#">
+                <a href="javascript:;" class="two-like">
                     <span class="fa fa-thumbs-up"></span>
-                    0
+                    <%= comment.likes.length %>
                 </a>
                 &nbsp;
-                <a href="#">
+                <a href="javascript:;" class="two-unlike">
                     <span class="fa fa-thumbs-down"></span>
-                    0
+                    <%= comment.unlikes.length %>
                 </a>
                 &#x3000;
                 <% if(user) { %>

@@ -16,14 +16,14 @@ module.exports = {
         host:'smtp.qq.com',
         //权限授权码
         auth:{
-            user:'2638519660@qq.com',
-            pass:'fxwapomfvrxkeaef'
+            user:'597782047@qq.com',
+            pass:'athwbwosgqndbbdh'
         }
     },
     //cookie的名字
     auth_name: 'ask_system',
     //cookie的加密key值
-    cookie_secret: 'suweiqing',
+    cookie_secret: 'peimeng',
     categorys: [
         ['ask', '问答'],
         ['share', '分享'],

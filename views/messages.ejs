@@ -1,4 +1,3 @@
-
 <!--主体内容-->
 <main ng-app="messageApp" ng-controller="messageController">
     <div class="container">
@@ -11,8 +10,8 @@
                     消息
                 </a>
                 <ul class="pull-right tab">
-                    <li class="hover"><a href="javascript:;">未读消息</a></li>
-                    <li><a href="javascript:;">已读消息</a></li>
+                    <li class="hover"><a href="javascript:;">未读</a></li>
+                    <li><a href="javascript:;">已读</a></li>
                 </ul>
             </div>
             <!--消息列表-->
@@ -77,6 +76,6 @@
             $(this).addClass('hover').siblings().removeClass('hover');
             $('.body ul').eq($(this).index()).removeClass('hide').siblings().addClass('hide');
         })
-        $('.navbar-left li:nth-of-type(2)').addClass('active').siblings().removeClass('active');
+//        $('.navbar-left li:nth-of-type(2)').addClass('active').siblings().removeClass('active');
     })
 </script>

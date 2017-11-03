@@ -46,7 +46,12 @@ const CommentSchema = new Schema({
     likes: {
         type: [String],
         ref: 'User'
-    }
+    },
+    //踩该留言的人的数组
+    unlikes: {
+        type: [String],
+        ref: 'User'
+    },
 })
 //当前的模型就会有BaseModel里面的方法了
 CommentSchema.statics = {
@@ -56,6 +61,10 @@ CommentSchema.statics = {
     },
     getFiveCommentsByReplyId: (reply_id, pageNum, callback) => {
         Comment.find({'reply_id': reply_id}, '', {sort: 'create_time'}).limit(5).skip((pageNum - 1) * 5 ).populate('comment_target_id')
+            .populate('question_id').populate('author').exec(callback);
+    },
+    getCommentsById: (comment_id, callback) => {
+        Comment.findOne({'_id': comment_id}).populate().populate('comment_target_id')
             .populate('question_id').populate('author').exec(callback);
     }
 }

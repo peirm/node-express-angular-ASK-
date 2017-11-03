@@ -1,9 +1,8 @@
-
-
 <!--主体内容-->
 <main>
-    <div class="container">
+    <div class="container main">
         <!--左部分-->
+
         <div class="col-lg-9 col-md-9 main-left">
             <!--标题栏-->
             <div class="title index-title">
@@ -24,8 +23,8 @@
                 </ul>
                 <!--分页-->
                 <div class="btn-group pull-right">
-                    <% if(allQuestion.length > 5) { %>
-                    <% for(var i = 1; i <= Math.ceil(allQuestion.length / 5); i++) { %>
+                    <% if(allQuestion.length > 10) { %>
+                    <% for(var i = 1; i <= Math.ceil(allQuestion.length / 10); i++) { %>
                     <button type="button" class="index-btn btn btn-default"><%= i %></button>
                     <% } %>
                     <% } %>

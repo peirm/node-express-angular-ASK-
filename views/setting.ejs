@@ -1,5 +1,3 @@
-
-
 <!--主体内容-->
 <main ng-app="settingApp" ng-controller="settingController">
     <div class="container">
@@ -25,8 +23,7 @@
                         <dl class="clearfix">
                             <dt><label for="">个性签名: &nbsp;</label></dt>
                             <dd>
-                                <textarea name="motto" cols="40" rows="6" placeholder="这家伙很懒, 什么都没留下.."
-                                          ng-maxlength="150" ng-model="formData.motto" required><%= user.motto %></textarea>
+                                <textarea name="motto" cols="40" rows="6" placeholder="这家伙很懒, 什么都没留下.." ng-maxlength="150" ng-model="formData.motto" required><%= user.motto %></textarea>
                                 <div style="height: 20px;">
                                     <label ng-cloak ng-show="settingForm.motto.$invalid && !settingForm.motto.$pristine">
                                         <span class="glyphicon glyphicon-info-sign"></span>
@@ -40,15 +37,15 @@
                     <div class="col-lg-4">
                         <div>
                             <dl class="clearfix">
-                                    <dt>
-                                            <!--<img class="img" id='picImg' src="<%= user.avatar %>" alt="">-->
-                                            <input id="avatar" name="avatar" type="file" target="<%= user.avatar %>" value="上传图片">
-                                    </dt>
-                                    <dd>
-                                        <p>头像设置</p>
-                                        <p>支持jpg、gif、png等格式的图片(其他的图片格式不支持)</p>
-                                        <!--<div id="upload" class="upload"><span class="fa fa-image"></span>上传图片</div>-->
-                                    </dd>
+                                <dt>
+                                    <!--<img class="img" id='picImg' src="<%= user.avatar %>" alt="">-->
+                                    <input id="avatar" name="avatar" type="file" target="<%= user.avatar %>" value="上传图片">
+                                </dt>
+                                <dd>
+                                    <p>头像设置</p>
+                                    <p>支持jpg、gif、png等格式的图片(其他的图片格式不支持)</p>
+                                    <!--<div id="upload" class="upload"><span class="fa fa-image"></span>上传图片</div>-->
+                                </dd>
                             </dl>
                         </div>
                     </div>

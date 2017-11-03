@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser(setting.cookie_secret));
 //使用session
 app.use(session({
-    secret: 'suweiqing',
+    secret: 'peimeng',
     resave: false,
     saveUninitialized: true
 }));
@@ -71,7 +71,7 @@ app.use((err, req, res, next) => {
 });
 
 _.extend(app.locals, require('./common/markdown'));
-app.listen(8000, () => {
+app.listen(5000, () => {
     console.log('node is OK');
 })
 

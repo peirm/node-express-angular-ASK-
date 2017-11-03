@@ -11,8 +11,8 @@ const mail = {
         let transporter = nodemailler.createTransport({
             service:'qq',
             auth:{
-                user:'2638519660@qq.com',
-                pass:'fxwapomfvrxkeaef'
+                user:'597782047@qq.com',
+                pass:'athwbwosgqndbbdh'
             }
         })
         //2.设置邮箱的默认格式

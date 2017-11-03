@@ -10,6 +10,7 @@ const Reply = require('../model/Reply');
 const User = require('../model/User');
 //引入at功能
 const at = require('../common/at');
+const _ = require('lodash');
 //引入message功能
 const message = require('../common/message');
 exports.add = (req, res, next) => {
@@ -117,5 +118,46 @@ exports.page = (req, res, next) => {
         res.render('commentsPage', {
             comments: comments
         })
+    })
+}
+//二级回复点赞
+exports.replyLike = (req, res, next) => {
+    let comment_id = req.params.commentId;
+    let userId = req.session.user._id;
+    let commentAuthorId = req.query.commentId;
+    console.log(comment_id, userId);
+    Comment.getCommentsById(comment_id, (err, comment) => {
+        console.log(comment);
+        if(_.includes(comment.likes, userId) == false) {
+            comment.likes.push(userId);
+        }
+        else {
+            comment.likes.remove(userId);
+        }
+        comment.save();
+        res.render('two-likes', {
+            comment: comment
+        });
+    })
+}
+//二级回复踩
+exports.replyUnLike = (req, res, next) => {
+    let comment_id = req.params.commentId;
+    let userId = req.session.user._id;
+    let commentAuthorId = req.query.commentId;
+    console.log(comment_id, userId);
+    Comment.getCommentsById(comment_id, (err, comment) => {
+        console.log(comment);
+        if(_.includes(comment.unlikes, userId) == false) {
+            comment.unlikes.push(userId);
+        }
+        else {
+            comment.unlikes.remove(userId);
+        }
+        // console.log(comment);
+        comment.save();
+        res.render('two-unlikes', {
+            comment: comment
+        });
     })
 }

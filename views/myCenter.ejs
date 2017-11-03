@@ -1,5 +1,3 @@
-
-
 <!--主体内容-->
 <main>
     <div class="container">
@@ -20,8 +18,7 @@
                                 <% } else { %>
                                 <span class="text">关注</span>
                                 <% } %>
-                                &nbsp;&nbsp;|&nbsp;&nbsp;
-                                <span class="follow-num"><%= person.beFollowed.length %></span></a>
+                            </a>
                         </span>
                     </div>
                 </li>
@@ -48,6 +45,7 @@
                     </ul>
                 </li>
             </ul>
+            <% if(user) { %>
             <div class="my-bottom">
                 <!--发问列表-->
                 <ul class="problems">
@@ -60,7 +58,7 @@
                 </ul>
                 <!--关注列表-->
                 <ul class="attention hide">
-                    <h1>我关注的文章</h1>
+                    <h1>关注的文章</h1>
                     <% followQuestion.forEach(function(question, index) { %>
                     <li style="margin: 10px 0; padding: 10px 0;">
                         <a href="/question/<%= question._id %>"><%= question.title %></a>
@@ -83,30 +81,49 @@
                     <% }) %>
                 </ul>
             </div>
+            <% } else { %>
+            <div style="text-align: center;margin: 10px;">请 <a href="/login">登录 </a>或 <a href="/register">注册</a></div>
+            <% } %>
         </div>
         <!--内容右部分-->
-        <div class="col-lg-3 main-right">
+
+        <div class="plate col-lg-3 main-right" id="<%= person.name %>">
             <!--关注板块-->
+            <% if(user && person._id == user._id) { %>
             <div class="hot">
-                <h4>关注<span><%= personPopulater.follow.length %></span>人<a href="#" class="more pull-right">更多</a></h4>
+                <h4 class="hot-follow">关注<span><%= personPopulater.follow.length %></span>人
+                    <a data-toggle="modal" data-target="#follow" class="more pull-right followMore">更多</a>
+                    <% include public/myFollows %>
+                </h4>
+                <% if(user) { %>
                 <% personPopulater.follow.forEach(function(person, index) { %>
+                <% if(index < 5) { %>
                 <div class="clearfix">
                     <img class="pull-left" src="<%= person.avatar %>" alt="">
                     <span><a href="/user/<%= person.name %>"><%= person.name %></a></span>
                 </div>
-                <% }) %>
+                <% }}) %>
+                <% } %>
             </div>
+            <% } %>
             <!--被关注板块-->
             <div class="hot">
-                <h4>被<span><%= personPopulater.beFollowed.length %></span>人关注<a href="" class="more pull-right">更多</a></h4>
+                <h4>被<span><%= personPopulater.beFollowed.length %></span>人关注
+                    <a data-toggle="modal" data-target="#beFollowed" class="more pull-right beFollowMore">更多</a>
+                    <% include public/beFollowed %>
+                </h4>
+                <% if(user) { %>
                 <% personPopulater.beFollowed.forEach(function(person, index) { %>
+                <% if(index < 5) { %>
                 <div class="clearfix">
                     <img class="pull-left" src="<%= person.avatar %>" alt="">
                     <span><a href="/user/<%= person.name %>"><%= person.name %></a></span>
                 </div>
-                <% }) %>
+                <% }}) %>
+                <% } %>
             </div>
         </div>
+
     </div>
 </main>
 

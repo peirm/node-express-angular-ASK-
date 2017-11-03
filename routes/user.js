@@ -146,11 +146,13 @@ exports.index = (req, res, next) => {
             }
             Message.geAllMessagesByUserId(person._id, (err, message) => {
                 let msg = null;
-                if(_.includes(person.beFollowed, req.session.user._id) == true) {
-                    msg = 'follow';
-                }
-                else {
-                    msg = 'unfollow';
+                if(req.session.user) {
+                    if (_.includes(person.beFollowed, req.session.user._id) == true) {
+                        msg = 'follow';
+                    }
+                    else {
+                        msg = 'unfollow';
+                    }
                 }
                 User.getUserByNamePopulater(userName, (err, personPopulater) => {
                     Question.find({}).populate('author').then(results => {
@@ -224,5 +226,22 @@ exports.replys = (req, res, next) => {
             })
         })
     })
-
+}
+//关注人列表
+exports.follow = (req, res ,next) => {
+    let name = req.params.name;
+    User.getUserByNamePopulater(name, (err, user) => {
+        res.render('follow-list', {
+            users: user.follow
+        })
+    })
+}
+//被关注人列表
+exports.beFollowed = (req, res, next) => {
+    let name = req.params.name;
+    User.getUserByNamePopulater(name, (err, user) => {
+        res.render('beFollowed-list', {
+            users: user.beFollowed
+        })
+    })
 }
