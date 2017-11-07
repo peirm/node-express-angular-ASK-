@@ -16,7 +16,7 @@
                     <!--问题的分类-->
                     <div class="different">
                         <p>问题的分类: </p>
-                        <select name="category" ng-model="formData.category" >
+                        <select name="category" ng-model="formData.category">
                             <% categorys.forEach(function (category, index) { %>
                                 <option value="<%= category[0] %>"><%= category[1] %></option>
                             <% }) %>
